@@ -21,7 +21,7 @@ with the world coordinates in the scene file. Neither those positions nor
 the scoring result supplies a navigation goal; the driving policy sees only
 SLAM, LiDAR, odometry, and tile visit history.
 
-The YOLO checkpoint in the example below is the locally trained 39-class
+The YOLO checkpoint in the example below is the locally trained
 `realistic_sim_yolo11n_all_objects` model. Its recorded peak validation
 mAP50-95 is about 0.461. This is a model-selection clue, not a guarantee
 that every object in the room will be recognized. The autonomous runner also

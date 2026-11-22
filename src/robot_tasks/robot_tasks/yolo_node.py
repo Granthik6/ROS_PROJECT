@@ -467,9 +467,6 @@ class YoloNode(Node):
         )
         try:
 
-            # Alternate the two 39-class models on hose frames. Running both
-            # on one callback delays the next camera frame and can leave too
-            # few distinct frames for two-observation confirmation.
             results = ([] if run_hose_fallback else self.model(
                 frame,
                 conf=self.conf_threshold,

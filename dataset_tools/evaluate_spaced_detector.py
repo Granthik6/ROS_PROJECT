@@ -1,4 +1,4 @@
-"""Evaluate 39-class YOLO weights on held-out spaced-world camera views."""
+"""Evaluate the saved YOLO weights on held-out spaced-world camera views."""
 
 import argparse
 import json

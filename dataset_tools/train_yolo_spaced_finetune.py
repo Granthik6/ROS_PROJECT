@@ -1,4 +1,4 @@
-"""Fine-tune the 39-class detector with new spaced-world hard examples."""
+"""Fine-tune the saved detector with new spaced-world hard examples."""
 
 import argparse
 from pathlib import Path

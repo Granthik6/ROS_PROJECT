@@ -1,11 +1,8 @@
 # 26-object Gazebo detection world
 
 The validated world is `src/robot_tasks/worlds/spaced_objects_reliable_26_v4.world`.
-It contains 26 physical target models selected from the original 36. Both
-`bottle_pcd_object` and `doll_pcd_object` are retained. The difficult jersey
-barrier, trash can, cafe table, and marble table are excluded; a cabinet faces
-the camera from an open east-side position. The other objects retain the
-spaced positions used in the 30-object trial.
+It contains 26 scored target models, including `bottle_pcd_object` and
+`doll_pcd_object`. The cabinet is placed in an open east-side position.
 
 Run a fresh DDQN trial from `/root/ros2_ws`:
 
