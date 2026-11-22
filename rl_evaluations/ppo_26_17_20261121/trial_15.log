@@ -1,0 +1,5 @@
+PPO: 25/26 objects, 35 visited cells, actions forward/left/right=708/2329/1640
+/root/ros2_ws/rl_evaluations/ppo_26_17_20261121_trial_15_seed_56_attempt_1/summary.json
+Verified PPO result: 25/26 in 12.001 minutes
+Missing: grey_tote_object
+Summary: /root/ros2_ws/rl_evaluations/ppo_26_17_20261121_trial_15_seed_56_attempt_1/summary.json

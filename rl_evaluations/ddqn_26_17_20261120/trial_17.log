@@ -1,0 +1,5 @@
+DDQN: 24/26 objects, 37 visited cells, actions forward/left/right=745/2346/1594
+/root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_17_seed_58_attempt_1/summary.json
+Verified DDQN result: 24/26 at 12.000 minutes
+Missing: table_main, drill_object
+Summary: /root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_17_seed_58_attempt_1/summary.json

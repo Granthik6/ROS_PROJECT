@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="pcd_doll">
+    <static>true</static>
+    <link name="body">
+      <collision name="bounding_box">
+        <pose>0.00045 0.00050 0.11400 0 0 0</pose>
+        <geometry><box><size>0.16800 0.10400 0.22800</size></box></geometry>
+      </collision>
+      <visual name="colored_scan">
+        <geometry>
+          <mesh><uri>model://pcd_doll/meshes/doll.dae</uri></mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

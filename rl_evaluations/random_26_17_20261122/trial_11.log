@@ -1,0 +1,5 @@
+RANDOM: 8/26 objects, 4 visited cells, actions forward/left/right=1604/1641/1520
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_11_seed_52_attempt_1/summary.json
+Verified random result: 8/26 in 12.001 minutes
+Missing: table_main, person_standing_main, person_walking_main, construction_barrel_object, mailbox_object, postbox_object, lamp_post_object, bowl_object, drill_object, beer_object, fire_hydrant_object, construction_cone_object, monkey_wrench_object, car_wheel_object, hokuyo_object, bottle_pcd_object, doll_pcd_object, cabinet_main
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_11_seed_52_attempt_1/summary.json

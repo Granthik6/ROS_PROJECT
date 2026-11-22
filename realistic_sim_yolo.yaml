@@ -1,0 +1,46 @@
+path: /root/ros2_ws/realistic_sim_yolo_dataset
+
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: cup
+  1: bowl
+  2: coke_can
+  3: cordless_drill
+  4: hammer
+  5: bookshelf
+  6: cabinet
+  7: table
+  8: cafe_table
+  9: person
+  10: beer
+  11: fire_hydrant
+  12: construction_cone
+  13: construction_barrel
+  14: cardboard_box
+  15: cricket_ball
+  16: monkey_wrench
+  17: mailbox
+  18: postbox
+  19: stop_sign
+  20: speed_limit_sign
+  21: lamp_post
+  22: first_2015_trash_can
+  23: utility_cart
+  24: grey_tote
+  25: car_wheel
+  26: door_handle
+  27: kinect
+  28: asus_xtion_pro_camera
+  29: hokuyo
+  30: table_marble
+  31: wooden_case
+  32: saucepan
+  33: jersey_barrier
+  34: stop_light
+  35: oak_tree
+  36: ball_bearing
+  37: gear_part
+  38: fire_hose_long

@@ -1,0 +1,5 @@
+RANDOM: 21/26 objects, 82 visited cells, actions forward/left/right=1551/1557/1653
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_17_seed_58_attempt_1/summary.json
+Verified random result: 21/26 in 12.002 minutes
+Missing: table_main, person_standing_main, mailbox_object, beer_object, hokuyo_object
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_17_seed_58_attempt_1/summary.json

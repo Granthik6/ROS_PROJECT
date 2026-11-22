@@ -1,0 +1,5 @@
+PPO: 22/26 objects, 10 visited cells, actions forward/left/right=303/3241/1086
+/root/ros2_ws/rl_evaluations/ppo_26_17_20261121_trial_02_seed_43_attempt_1/summary.json
+Verified PPO result: 22/26 in 12.003 minutes
+Missing: mailbox_object, grey_tote_object, drill_object, monkey_wrench_object
+Summary: /root/ros2_ws/rl_evaluations/ppo_26_17_20261121_trial_02_seed_43_attempt_1/summary.json

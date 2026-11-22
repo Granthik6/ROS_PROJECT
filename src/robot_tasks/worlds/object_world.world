@@ -1,0 +1,382 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+
+  <world name="object_world">
+
+    <!-- ========================= -->
+    <!-- LIGHTING                   -->
+    <!-- ========================= -->
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- ========================= -->
+    <!-- FLOOR                      -->
+    <!-- ========================= -->
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+
+    <!-- ========================= -->
+    <!-- WALL 1                     -->
+    <!-- ========================= -->
+
+    <model name="wall_1">
+      <static>true</static>
+      <pose>0 5 1.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- WALL 2                     -->
+    <!-- ========================= -->
+
+    <model name="wall_2">
+      <static>true</static>
+      <pose>0 -5 1.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- WALL 3                     -->
+    <!-- ========================= -->
+
+    <model name="wall_3">
+      <static>true</static>
+      <pose>5 0 1.5 0 0 1.5708</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- WALL 4                     -->
+    <!-- ========================= -->
+
+    <model name="wall_4">
+      <static>true</static>
+      <pose>-5 0 1.5 0 0 1.5708</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- RED BOX                    -->
+    <!-- ========================= -->
+
+    <model name="red_box">
+      <static>true</static>
+      <pose>-2 1 0.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- BLUE CYLINDER              -->
+    <!-- ========================= -->
+
+    <model name="blue_cylinder">
+      <static>true</static>
+      <pose>0 2 0.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+
+          <material>
+            <ambient>0 0 1 1</ambient>
+            <diffuse>0 0 1 1</diffuse>
+          </material>
+
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- GREEN SPHERE               -->
+    <!-- ========================= -->
+
+    <model name="green_sphere">
+      <static>true</static>
+      <pose>2 1 0.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+
+          <material>
+            <ambient>0 1 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
+          </material>
+
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- SIMPLE TABLE               -->
+    <!-- ========================= -->
+
+    <model name="table">
+      <static>true</static>
+      <pose>2 -2 1 0 0 0</pose>
+
+      <link name="link">
+
+        <!-- tabletop -->
+        <visual name="top_visual">
+          <pose>0 0 0.9 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2 1.2 0.2</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <collision name="top_collision">
+          <pose>0 0 0.9 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2 1.2 0.2</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <!-- leg 1 -->
+        <visual name="leg1_visual">
+          <pose>0.8 0.4 0.45 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.15 0.15 0.9</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <!-- leg 2 -->
+        <visual name="leg2_visual">
+          <pose>-0.8 0.4 0.45 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.15 0.15 0.9</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <!-- leg 3 -->
+        <visual name="leg3_visual">
+          <pose>0.8 -0.4 0.45 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.15 0.15 0.9</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <!-- leg 4 -->
+        <visual name="leg4_visual">
+          <pose>-0.8 -0.4 0.45 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.15 0.15 0.9</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- ========================= -->
+    <!-- SIMPLE CHAIR               -->
+    <!-- ========================= -->
+
+    <model name="chair">
+      <static>true</static>
+      <pose>-2 -2 0.6 0 0 0</pose>
+
+      <link name="link">
+
+        <!-- seat -->
+        <visual name="seat">
+          <pose>0 0 0.55 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1 1 0.15</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <!-- back -->
+        <visual name="back">
+          <pose>0 -0.42 1.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1 0.15 1.1</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <!-- front left leg -->
+        <visual name="leg1">
+          <pose>0.4 0.4 0.25 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.12 0.12 0.5</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <!-- front right leg -->
+        <visual name="leg2">
+          <pose>-0.4 0.4 0.25 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.12 0.12 0.5</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+
+  </world>
+
+</sdf>

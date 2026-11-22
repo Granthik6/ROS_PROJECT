@@ -1,0 +1,39 @@
+{
+  "source_file": "/root/ros2_ws/bottle.pcd",
+  "original_points": 16243,
+  "retained_object_points": 16218,
+  "crop_min": [
+    -0.09,
+    -0.205,
+    -0.36
+  ],
+  "crop_max": [
+    0.025,
+    0.03,
+    -0.28
+  ],
+  "voxel_size_m": 0.004,
+  "occupied_voxels": 1334,
+  "mesh_triangles": 6628,
+  "texture_png": "bottle_colors.png",
+  "mesh_bounds_m": [
+    [
+      -0.04654848389327526,
+      -0.03049999475479126,
+      0.0
+    ],
+    [
+      0.04945151610672474,
+      0.03350000524520874,
+      0.224
+    ]
+  ],
+  "world_pose_xyz_rpy": [
+    1.93,
+    -3.15,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ]
+}

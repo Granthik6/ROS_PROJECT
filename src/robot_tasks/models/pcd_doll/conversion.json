@@ -1,0 +1,39 @@
+{
+  "source_file": "/root/ros2_ws/doll.pcd",
+  "original_points": 106226,
+  "retained_object_points": 61105,
+  "crop_min": [
+    -0.04,
+    -0.14,
+    -0.33
+  ],
+  "crop_max": [
+    0.17,
+    0.11,
+    -0.18
+  ],
+  "voxel_size_m": 0.004,
+  "occupied_voxels": 2451,
+  "mesh_triangles": 11676,
+  "texture_png": "doll_colors.png",
+  "mesh_bounds_m": [
+    [
+      -0.08355176728218794,
+      -0.051500000059604645,
+      0.0
+    ],
+    [
+      0.08444823271781207,
+      0.052499999940395364,
+      0.228
+    ]
+  ],
+  "world_pose_xyz_rpy": [
+    2.6,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ]
+}

@@ -1,0 +1,489 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.6">
+
+  <world name="realistic_room">
+
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/gazebo</namespace>
+      </ros>
+      <update_rate>30.0</update_rate>
+    </plugin>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <physics type="ode">
+
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>150</iters>
+          <precon_iters>0</precon_iters>
+          <sor>1.400000</sor>
+          <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>0.00001</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>2000.000000</contact_max_correcting_vel>
+          <contact_surface_layer>0.01000</contact_surface_layer>
+        </constraints>
+      </ode>
+
+    </physics>
+
+
+    <model name="wall_back">
+
+      <static>true</static>
+      <pose>0 5 1.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>12 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>12 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+
+    </model>
+
+
+    <model name="wall_front">
+
+      <static>true</static>
+      <pose>0 -5 1.5 0 0 0</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>12 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>12 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+
+    </model>
+
+
+    <model name="wall_left">
+
+      <static>true</static>
+      <pose>-6 0 1.5 0 0 1.5707963</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+
+    </model>
+
+
+    <model name="wall_right">
+
+      <static>true</static>
+      <pose>6 0 1.5 0 0 1.5707963</pose>
+
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 3</size>
+            </box>
+          </geometry>
+        </visual>
+
+      </link>
+
+    </model>
+
+
+    <include>
+
+      <uri>model://bookshelf</uri>
+      <name>bookshelf_main</name>
+
+      <pose>
+        -4.5 3.8 0 0 0 0
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://cabinet</uri>
+      <name>cabinet_main</name>
+
+      <pose>
+        4.5 3.8 0 0 0 3.1415926
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://table</uri>
+      <name>table_main</name>
+
+      <pose>
+        0 2.0 0 0 0 0
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://cafe_table</uri>
+      <name>cafe_table_main</name>
+
+      <pose>
+        -3.2 -1.8 0 0 0 0.6
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://person_standing</uri>
+      <name>person_standing_main</name>
+
+      <pose>
+        -3.8 0.3 0 0 0 2.5
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://person_walking</uri>
+      <name>person_walking_main</name>
+
+      <pose>
+        3.7 3.0 0 0 0 -1.5
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://plastic_cup</uri>
+      <name>cup_object</name>
+
+      <pose>-1.8 -2.5 0.0727 0 0 0</pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://bowl</uri>
+      <name>bowl_object</name>
+
+      <pose>
+        -0.4 -2.8 0 0 0 0.5
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://coke_can</uri>
+      <name>can_object</name>
+
+      <pose>
+        1.2 -2.5 0 0 0 0
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://cordless_drill</uri>
+      <name>drill_object</name>
+
+      <pose>
+        -1.0 0.0 0 0 0 0.8
+      </pose>
+
+      <static>true</static>
+
+    </include>
+
+
+    <include>
+
+      <uri>model://hammer</uri>
+      <name>hammer_object</name>
+
+      <pose>1.8 0.0 0.0168 0 0 1.2</pose>
+
+      <static>true</static>
+
+    </include>
+
+
+
+    <include>
+      <uri>model://beer</uri>
+      <name>beer_object</name>
+      <pose>-5.5 -4.5 0.1150 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://fire_hydrant</uri>
+      <name>fire_hydrant_object</name>
+      <pose>-4.15 -4.5 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://construction_cone</uri>
+      <name>construction_cone_object</name>
+      <pose>-2.8 -4.5 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://construction_barrel</uri>
+      <name>construction_barrel_object</name>
+      <pose>-1.45 -4.5 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://cardboard_box</uri>
+      <name>cardboard_box_object</name>
+      <pose>-0.1 -4.5 0.1500 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://cricket_ball</uri>
+      <name>cricket_ball_object</name>
+      <pose>1.25 -4.5 0.0375 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://monkey_wrench</uri>
+      <name>monkey_wrench_object</name>
+      <pose>2.6 -4.5 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://mailbox</uri>
+      <name>mailbox_object</name>
+      <pose>3.95 -4.5 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://postbox</uri>
+      <name>postbox_object</name>
+      <pose>5.3 -4.5 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://stop_sign</uri>
+      <name>stop_sign_object</name>
+      <pose>-4.83 -3.15 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://lamp_post</uri>
+      <name>lamp_post_object</name>
+      <pose>-0.77 -3.15 0 0 0 0</pose>
+      <scale>0.333333 0.333333 0.333333</scale>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://first_2015_trash_can</uri>
+      <name>first_2015_trash_can_object</name>
+      <pose>0.58 -3.15 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+
+    <include>
+      <uri>model://grey_tote</uri>
+      <name>grey_tote_object</name>
+      <pose>3.28 -3.15 0.025 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://car_wheel</uri>
+      <name>car_wheel_object</name>
+      <pose>-5.5 -1.8 0.0806 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://hokuyo</uri>
+      <name>hokuyo_object</name>
+      <pose>2.6 -1.8 0.0351 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://table_marble</uri>
+      <name>table_marble_object</name>
+      <pose>-2.0 3.9 0.6480 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://wooden_case</uri>
+      <name>wooden_case_object</name>
+      <pose>5.3 -1.8 0.0240 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://saucepan</uri>
+      <name>saucepan_object</name>
+      <pose>-4.83 -0.45 0.0290 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>jersey_barrier_object</name>
+      <pose>-2.12 -0.45 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://stop_light</uri>
+      <name>stop_light_object</name>
+      <pose>-0.77 -0.45 0.7801 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://ball_bearing</uri>
+      <name>ball_bearing_object</name>
+      <pose>3.28 -0.45 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://gear_part</uri>
+      <name>gear_part_object</name>
+      <pose>4.62 -0.45 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://fire_hose_long</uri>
+      <name>fire_hose_long_object</name>
+      <pose>-5.5 0.9 0.1000 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://pcd_bottle</uri>
+      <name>bottle_pcd_object</name>
+      <pose>1.93 -3.15 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://pcd_doll</uri>
+      <name>doll_pcd_object</name>
+      <pose>2.60 1.00 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+  </world>
+
+</sdf>

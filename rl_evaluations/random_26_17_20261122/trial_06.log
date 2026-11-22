@@ -1,0 +1,5 @@
+RANDOM: 20/26 objects, 64 visited cells, actions forward/left/right=1524/1606/1631
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_06_seed_47_attempt_1/summary.json
+Verified random result: 20/26 in 12.000 minutes
+Missing: grey_tote_object, hammer_object, cricket_ball_object, wooden_case_object, saucepan_object, gear_part_object
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_06_seed_47_attempt_1/summary.json

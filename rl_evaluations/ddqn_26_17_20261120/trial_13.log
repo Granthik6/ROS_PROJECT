@@ -1,0 +1,5 @@
+DDQN: 25/26 objects, 34 visited cells, actions forward/left/right=666/2331/1673
+/root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_13_seed_54_attempt_1/summary.json
+Verified DDQN result: 25/26 at 12.000 minutes
+Missing: mailbox_object
+Summary: /root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_13_seed_54_attempt_1/summary.json

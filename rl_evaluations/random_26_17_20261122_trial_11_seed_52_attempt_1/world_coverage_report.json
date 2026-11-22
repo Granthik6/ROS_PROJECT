@@ -1,0 +1,250 @@
+{
+  "target_objects": 26,
+  "matched_objects": 8,
+  "all_objects_detected": false,
+  "time_to_all_s": null,
+  "match_radius_m": 1.25,
+  "min_confirmations": 2,
+  "accepted_observations": 76,
+  "confirmed_detection_clusters": 10,
+  "unmatched_detections": [
+    {
+      "id": "6",
+      "class": "wooden_case",
+      "x": -2.4659606712605697,
+      "y": 5.330694611875723,
+      "confidence": 0.3274,
+      "observations": 2,
+      "last_stamp": "30.321",
+      "first_seen_s": 4.172736352000356,
+      "confirmed_s": 18.232361770000352
+    },
+    {
+      "id": "11",
+      "class": "fire_hose_long",
+      "x": -0.13004631550847504,
+      "y": 1.405872603593564,
+      "confidence": 0.6739,
+      "observations": 4,
+      "last_stamp": "25.289",
+      "first_seen_s": 11.991229086999738,
+      "confirmed_s": 12.244030566999754
+    }
+  ],
+  "objects": [
+    {
+      "name": "table_main",
+      "class": "table",
+      "x": -2.5,
+      "y": -5.6,
+      "detected": false
+    },
+    {
+      "name": "person_standing_main",
+      "class": "person",
+      "x": 4.2,
+      "y": -9.0,
+      "detected": false
+    },
+    {
+      "name": "person_walking_main",
+      "class": "person",
+      "x": 1.8,
+      "y": -6.8,
+      "detected": false
+    },
+    {
+      "name": "construction_barrel_object",
+      "class": "construction_barrel",
+      "x": -7.0,
+      "y": -6.2,
+      "detected": false
+    },
+    {
+      "name": "mailbox_object",
+      "class": "mailbox",
+      "x": 7.0,
+      "y": -6.2,
+      "detected": false
+    },
+    {
+      "name": "postbox_object",
+      "class": "postbox",
+      "x": -7.0,
+      "y": -3.4,
+      "detected": false
+    },
+    {
+      "name": "stop_sign_object",
+      "class": "stop_sign",
+      "x": -3.2,
+      "y": 1.1,
+      "detected": true,
+      "detection_id": "8",
+      "distance_error_m": 0.446,
+      "first_seen_s": 5.657252322000204,
+      "confirmed_s": 5.923536360999606
+    },
+    {
+      "name": "lamp_post_object",
+      "class": "lamp_post",
+      "x": -7.0,
+      "y": -0.6,
+      "detected": false
+    },
+    {
+      "name": "grey_tote_object",
+      "class": "grey_tote",
+      "x": 3.5,
+      "y": 4.6,
+      "detected": true,
+      "detection_id": "2",
+      "distance_error_m": 0.279,
+      "first_seen_s": 3.0228264329998638,
+      "confirmed_s": 3.69709555099962
+    },
+    {
+      "name": "bowl_object",
+      "class": "bowl",
+      "x": 0.0,
+      "y": -4.0,
+      "detected": false
+    },
+    {
+      "name": "drill_object",
+      "class": "cordless_drill",
+      "x": 4.2,
+      "y": -6.2,
+      "detected": false
+    },
+    {
+      "name": "hammer_object",
+      "class": "hammer",
+      "x": -0.6,
+      "y": -1.0,
+      "detected": true,
+      "detection_id": "5",
+      "distance_error_m": 0.108,
+      "first_seen_s": 4.0666602749997764,
+      "confirmed_s": 4.467955088999588
+    },
+    {
+      "name": "beer_object",
+      "class": "beer",
+      "x": -1.4,
+      "y": -3.4,
+      "detected": false
+    },
+    {
+      "name": "fire_hydrant_object",
+      "class": "fire_hydrant",
+      "x": 1.4,
+      "y": -3.4,
+      "detected": false
+    },
+    {
+      "name": "construction_cone_object",
+      "class": "construction_cone",
+      "x": 4.2,
+      "y": -3.4,
+      "detected": false
+    },
+    {
+      "name": "cardboard_box_object",
+      "class": "cardboard_box",
+      "x": -4.2,
+      "y": -0.6,
+      "detected": true,
+      "detection_id": "10",
+      "distance_error_m": 0.254,
+      "first_seen_s": 7.071403981000003,
+      "confirmed_s": 7.92969284100036
+    },
+    {
+      "name": "cricket_ball_object",
+      "class": "cricket_ball",
+      "x": 0.5,
+      "y": 0.5,
+      "detected": true,
+      "detection_id": "7",
+      "distance_error_m": 0.006,
+      "first_seen_s": 4.786891822999678,
+      "confirmed_s": 12.38753206399997
+    },
+    {
+      "name": "monkey_wrench_object",
+      "class": "monkey_wrench",
+      "x": 1.4,
+      "y": -0.6,
+      "detected": false
+    },
+    {
+      "name": "car_wheel_object",
+      "class": "car_wheel",
+      "x": 4.2,
+      "y": -0.6,
+      "detected": false
+    },
+    {
+      "name": "hokuyo_object",
+      "class": "hokuyo",
+      "x": -1.25,
+      "y": -2.42,
+      "detected": false
+    },
+    {
+      "name": "wooden_case_object",
+      "class": "wooden_case",
+      "x": -1.4,
+      "y": 2.2,
+      "detected": true,
+      "detection_id": "1",
+      "distance_error_m": 0.281,
+      "first_seen_s": 2.917997149000257,
+      "confirmed_s": 3.59338163800021
+    },
+    {
+      "name": "saucepan_object",
+      "class": "saucepan",
+      "x": 1.4,
+      "y": 2.2,
+      "detected": true,
+      "detection_id": "3",
+      "distance_error_m": 0.273,
+      "first_seen_s": 3.127138586000001,
+      "confirmed_s": 3.802638111000306
+    },
+    {
+      "name": "gear_part_object",
+      "class": "gear_part",
+      "x": 0.2,
+      "y": -1.2,
+      "detected": true,
+      "detection_id": "4",
+      "distance_error_m": 0.016,
+      "first_seen_s": 3.2302126430004137,
+      "confirmed_s": 4.573477934000039
+    },
+    {
+      "name": "bottle_pcd_object",
+      "class": "bottle",
+      "x": -0.56,
+      "y": -3.35,
+      "detected": false
+    },
+    {
+      "name": "doll_pcd_object",
+      "class": "doll",
+      "x": 1.68,
+      "y": -2.34,
+      "detected": false
+    },
+    {
+      "name": "cabinet_main",
+      "class": "cabinet",
+      "x": 4.0,
+      "y": -2.0,
+      "detected": false
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+RANDOM: 25/26 objects, 30 visited cells, actions forward/left/right=1612/1548/1601
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_07_seed_48_attempt_1/summary.json
+Verified random result: 25/26 in 12.000 minutes
+Missing: cricket_ball_object
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_07_seed_48_attempt_1/summary.json

@@ -1,0 +1,5 @@
+PPO: 26/26 objects, 13 visited cells, actions forward/left/right=136/832/558
+/root/ros2_ws/rl_evaluations/ppo_26_17_20261121_trial_06_seed_47_attempt_1/summary.json
+Verified PPO result: 26/26 in 3.952 minutes
+Missing: none
+Summary: /root/ros2_ws/rl_evaluations/ppo_26_17_20261121_trial_06_seed_47_attempt_1/summary.json

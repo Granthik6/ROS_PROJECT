@@ -1,0 +1,5 @@
+cell_x,cell_y,center_odom_x_m,center_odom_y_m,first_step,first_elapsed_s,last_step,visit_samples
+-2,-5,-0.75,-2.25,686,106.404,720,35
+-1,-6,-0.25,-2.75,320,49.656,666,51
+-1,-5,-0.25,-2.25,1,0.156,685,502
+-1,-4,-0.25,-1.75,67,10.397,198,132

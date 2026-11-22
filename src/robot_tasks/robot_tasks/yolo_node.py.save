@@ -1,0 +1,277 @@
+import rclpy
+from rclpy.node import Node
+
+from sensor_msgs.msg import Image
+from std_msgs.msg import Float32
+from std_msgs.msg import String
+
+from cv_bridge import CvBridge
+from ultralytics import YOLO
+
+import cv2
+import time
+
+
+class YoloNode(Node):
+
+    def __init__(self):
+        super().__init__('yolo_node')
+
+        # ---------------------------------------------------------
+        # Load your trained YOLO11n 40-class model
+        # ---------------------------------------------------------
+        model_path = (
+            '/root/waste_yolo_project/'
+            'runs/detect/train/weights/best.pt'
+        )
+
+        self.model = YOLO(model_path)
+
+        self.get_logger().info(
+            f'Loaded YOLO model: {model_path}'
+        )
+
+        # ---------------------------------------------------------
+        # ROS image bridge
+        # ---------------------------------------------------------
+        self.bridge = CvBridge()
+
+        # ---------------------------------------------------------
+        # Camera subscription
+        # ---------------------------------------------------------
+        self.subscription = self.create_subscription(
+            Image,
+            '/camera/image_raw',
+            self.image_callback,
+            10
+        )
+
+        # ---------------------------------------------------------
+        # Publish confidence of every detection
+        # /detection_confidence
+        # ---------------------------------------------------------
+        self.confidence_publisher = self.create_publisher(
+            Float32,
+            '/detection_confidence',
+            10
+        )
+
+        # ---------------------------------------------------------
+        # Publish class + confidence
+        # /yolo_detection
+        #
+        # Example:
+        # banana,0.2654
+        # chair,0.9002
+        # ---------------------------------------------------------
+        self.detection_publisher = self.create_publisher(
+            String,
+            '/yolo_detection',
+            10
+        )
+
+        # ---------------------------------------------------------
+        # Publish ONLY banana confidence
+        # /banana_confidence
+        # ---------------------------------------------------------
+        self.banana_confidence_publisher = self.create_publisher(
+            Float32,
+            '/banana_confidence',
+            10
+        )
+
+        # ---------------------------------------------------------
+        # FPS
+        # ---------------------------------------------------------
+        self.frame_count = 0
+        self.start_time = time.time()
+
+    def image_callback(self, msg):
+
+        # ---------------------------------------------------------
+        # Convert ROS image to OpenCV
+        # ---------------------------------------------------------
+        try:
+            frame = self.bridge.imgmsg_to_cv2(
+                msg,
+                desired_encoding='bgr8'
+            )
+        except Exception as e:
+            self.get_logger().error(
+                f'Image conversion failed: {e}'
+            )
+            return
+
+        # ---------------------------------------------------------
+        # Run YOLO
+        # ---------------------------------------------------------
+        try:
+            results = self.model(
+                frame,
+                conf=0.10,
+    imgsz=960,
+                verbose=False
+            )
+        except Exception as e:
+            self.get_logger().error(
+                f'YOLO inference failed: {e}'
+            )
+            return
+
+        # ---------------------------------------------------------
+        # Process detections
+        # ---------------------------------------------------------
+        for result in results:
+
+            if result.boxes is None:
+                continue
+
+            for box in result.boxes:
+
+                # Class ID
+                class_id = int(
+                    box.cls[0].item()
+                )
+
+                # Confidence
+                confidence = float(
+                    box.conf[0].item()
+                )
+
+                # Class name
+                class_name = self.model.names[class_id]
+if class_name != 'banana':
+    contin
+
+                # -------------------------------------------------
+                # Bounding box
+                # -------------------------------------------------
+                x1, y1, x2, y2 = map(
+                    int,
+                    box.xyxy[0].tolist()
+                )
+
+                # -------------------------------------------------
+                # Draw bounding box
+                # -------------------------------------------------
+                cv2.rectangle(
+                    frame,
+                    (x1, y1),
+                    (x2, y2),
+                    (0, 255, 255),
+                    2
+                )
+
+                # -------------------------------------------------
+                # Draw class + confidence
+                # -------------------------------------------------
+                label = (
+                    f'{class_name}: '
+                    f'{confidence:.2f}'
+                )
+
+                cv2.putText(
+                    frame,
+                    label,
+                    (x1, max(y1 - 10, 20)),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5,
+                    (0, 255, 255),
+                    2
+                )
+
+                # -------------------------------------------------
+                # Publish general confidence
+                # -------------------------------------------------
+                confidence_msg = Float32()
+                confidence_msg.data = confidence
+
+                self.confidence_publisher.publish(
+                    confidence_msg
+                )
+
+                # -------------------------------------------------
+                # Publish class + confidence
+                # -------------------------------------------------
+                detection_msg = String()
+
+                detection_msg.data = (
+                    f'{class_name},{confidence:.4f}'
+                )
+
+                self.detection_publisher.publish(
+                    detection_msg
+                )
+
+                # -------------------------------------------------
+                # Publish ONLY banana confidence
+                # -------------------------------------------------
+                if class_name == 'banana':
+
+                    banana_msg = Float32()
+                    banana_msg.data = confidence
+
+                    self.banana_confidence_publisher.publish(
+                        banana_msg
+                    )
+
+                # -------------------------------------------------
+                # Print to terminal
+                # -------------------------------------------------
+                self.get_logger().info(
+                    f'Detected: {class_name} '
+                    f'Confidence: {confidence:.4f}'
+                )
+
+        # ---------------------------------------------------------
+        # FPS
+        # ---------------------------------------------------------
+        self.frame_count += 1
+
+        elapsed = time.time() - self.start_time
+
+        if elapsed >= 1.0:
+
+            fps = self.frame_count / elapsed
+
+            self.get_logger().info(
+                f'YOLO11n FPS: {fps:.2f}'
+            )
+
+            self.frame_count = 0
+            self.start_time = time.time()
+
+        # ---------------------------------------------------------
+        # Show result
+        # ---------------------------------------------------------
+        cv2.imshow(
+            'YOLO11n Detection',
+            frame
+        )
+
+        cv2.waitKey(1)
+
+
+def main(args=None):
+
+    rclpy.init(args=args)
+
+    node = YoloNode()
+
+    try:
+        rclpy.spin(node)
+
+    except KeyboardInterrupt:
+        pass
+
+    finally:
+        node.destroy_node()
+
+        if rclpy.ok():
+            rclpy.shutdown()
+
+        cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    main()

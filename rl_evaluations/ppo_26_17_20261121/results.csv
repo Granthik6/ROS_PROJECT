@@ -1,0 +1,18 @@
+trial,seed,run_id,matched_objects,target_objects,all_objects_detected,elapsed_minutes,time_to_all_minutes,total_reward,status,missing_objects
+1,42,ppo_reliable26_seed42_20261121,26,26,True,1.774,1.772,131.74388,all_objects_found,
+2,43,ppo_26_17_20261121_trial_02_seed_43_attempt_1,22,26,False,12.003,,-847.12522,completed_time_limit,mailbox_object; grey_tote_object; drill_object; monkey_wrench_object
+3,44,ppo_26_17_20261121_trial_03_seed_44_attempt_1,26,26,True,2.552,2.55,85.81119,all_objects_found,
+4,45,ppo_26_17_20261121_trial_04_seed_45_attempt_1,26,26,True,1.862,1.86,127.15964,all_objects_found,
+5,46,ppo_26_17_20261121_trial_05_seed_46_attempt_1,26,26,True,5.494,5.493,-167.10907,all_objects_found,
+6,47,ppo_26_17_20261121_trial_06_seed_47_attempt_1,26,26,True,3.952,3.95,1.8601,all_objects_found,
+7,48,ppo_26_17_20261121_trial_07_seed_48_attempt_1,25,26,False,12.001,,-693.34989,completed_time_limit,lamp_post_object
+8,49,ppo_26_17_20261121_trial_08_seed_49_attempt_2,23,26,False,12.002,,-689.00832,completed_time_limit,cricket_ball_object; monkey_wrench_object; gear_part_object
+9,50,ppo_26_17_20261121_trial_09_seed_50_attempt_1,26,26,True,3.186,3.184,38.98841,all_objects_found,
+10,51,ppo_26_17_20261121_trial_10_seed_51_attempt_1,25,26,False,12.002,,-699.02056,completed_time_limit,grey_tote_object
+11,52,ppo_26_17_20261121_trial_11_seed_52_attempt_1,25,26,False,12.002,,-694.47659,completed_time_limit,monkey_wrench_object
+12,53,ppo_26_17_20261121_trial_12_seed_53_attempt_1,26,26,True,2.079,2.078,93.79867,all_objects_found,
+13,54,ppo_26_17_20261121_trial_13_seed_54_attempt_1,25,26,False,12.002,,-792.91254,completed_time_limit,lamp_post_object
+14,55,ppo_26_17_20261121_trial_14_seed_55_attempt_1,26,26,True,3.028,3.027,53.7862,all_objects_found,
+15,56,ppo_26_17_20261121_trial_15_seed_56_attempt_1,25,26,False,12.001,,-748.79771,completed_time_limit,grey_tote_object
+16,57,ppo_26_17_20261121_trial_16_seed_57_attempt_1,26,26,True,3.497,3.496,21.45818,all_objects_found,
+17,58,ppo_26_17_20261121_trial_17_seed_58_attempt_1,25,26,False,12.001,,-682.84238,completed_time_limit,lamp_post_object

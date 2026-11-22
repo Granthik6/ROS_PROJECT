@@ -1,0 +1,5 @@
+DDQN: 26/26 objects, 6 visited cells, actions forward/left/right=36/451/282
+/root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_11_seed_52_attempt_1/summary.json
+Verified DDQN result: 26/26 at 1.974 minutes
+Missing: none
+Summary: /root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_11_seed_52_attempt_1/summary.json

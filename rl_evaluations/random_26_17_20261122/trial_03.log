@@ -1,0 +1,5 @@
+RANDOM: 22/26 objects, 40 visited cells, actions forward/left/right=1609/1521/1629
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_03_seed_44_attempt_1/summary.json
+Verified random result: 22/26 in 12.001 minutes
+Missing: table_main, bowl_object, hokuyo_object, bottle_pcd_object
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_03_seed_44_attempt_1/summary.json

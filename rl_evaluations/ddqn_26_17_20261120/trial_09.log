@@ -1,0 +1,5 @@
+DDQN: 25/26 objects, 34 visited cells, actions forward/left/right=370/2835/1463
+/root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_09_seed_50_attempt_1/summary.json
+Verified DDQN result: 25/26 at 12.002 minutes
+Missing: grey_tote_object
+Summary: /root/ros2_ws/rl_evaluations/ddqn_26_17_20261120_trial_09_seed_50_attempt_1/summary.json

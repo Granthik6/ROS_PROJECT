@@ -1,0 +1,5 @@
+RANDOM: 23/26 objects, 29 visited cells, actions forward/left/right=1613/1573/1576
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_01_seed_42_attempt_1/summary.json
+Verified random result: 23/26 in 12.000 minutes
+Missing: construction_barrel_object, grey_tote_object, saucepan_object
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_01_seed_42_attempt_1/summary.json

@@ -1,0 +1,283 @@
+{
+  "target_objects": 26,
+  "matched_objects": 8,
+  "all_objects_detected": false,
+  "time_to_all_s": null,
+  "match_radius_m": 1.25,
+  "min_confirmations": 2,
+  "accepted_observations": 129,
+  "confirmed_detection_clusters": 13,
+  "unmatched_detections": [
+    {
+      "id": "8",
+      "class": "table",
+      "x": -1.7268661209889302,
+      "y": -4.984436120961281,
+      "confidence": 0.8876,
+      "observations": 5,
+      "last_stamp": "38.233",
+      "first_seen_s": 5.159593237000081,
+      "confirmed_s": 10.67226331799975
+    },
+    {
+      "id": "12",
+      "class": "construction_barrel",
+      "x": -8.717689406632857,
+      "y": -6.844304972690148,
+      "confidence": 0.4662,
+      "observations": 2,
+      "last_stamp": "20.102",
+      "first_seen_s": 6.44802817999971,
+      "confirmed_s": 7.503156259000207
+    },
+    {
+      "id": "14",
+      "class": "lamp_post",
+      "x": -9.285309531717886,
+      "y": -0.17264788157354616,
+      "confidence": 0.8046,
+      "observations": 2,
+      "last_stamp": "22.169",
+      "first_seen_s": 7.294005048999679,
+      "confirmed_s": 9.419368555999426
+    },
+    {
+      "id": "18",
+      "class": "table",
+      "x": -1.351080273128952,
+      "y": -3.4799682943431405,
+      "confidence": 0.8984,
+      "observations": 20,
+      "last_stamp": "37.499",
+      "first_seen_s": 10.2359241260001,
+      "confirmed_s": 11.089033604999713
+    },
+    {
+      "id": "23",
+      "class": "table",
+      "x": -1.9924430349243534,
+      "y": -5.945785792469659,
+      "confidence": 0.5984,
+      "observations": 4,
+      "last_stamp": "38.766",
+      "first_seen_s": 23.837167973999385,
+      "confirmed_s": 24.308127212999352
+    }
+  ],
+  "objects": [
+    {
+      "name": "table_main",
+      "class": "table",
+      "x": -2.5,
+      "y": -5.6,
+      "detected": true,
+      "detection_id": "7",
+      "distance_error_m": 0.553,
+      "first_seen_s": 4.885583812999357,
+      "confirmed_s": 13.206505606999599
+    },
+    {
+      "name": "person_standing_main",
+      "class": "person",
+      "x": 4.2,
+      "y": -9.0,
+      "detected": false
+    },
+    {
+      "name": "person_walking_main",
+      "class": "person",
+      "x": 1.8,
+      "y": -6.8,
+      "detected": false
+    },
+    {
+      "name": "construction_barrel_object",
+      "class": "construction_barrel",
+      "x": -7.0,
+      "y": -6.2,
+      "detected": true,
+      "detection_id": "6",
+      "distance_error_m": 0.332,
+      "first_seen_s": 4.782558054999754,
+      "confirmed_s": 5.263871891000235
+    },
+    {
+      "name": "mailbox_object",
+      "class": "mailbox",
+      "x": 7.0,
+      "y": -6.2,
+      "detected": false
+    },
+    {
+      "name": "postbox_object",
+      "class": "postbox",
+      "x": -7.0,
+      "y": -3.4,
+      "detected": true,
+      "detection_id": "10",
+      "distance_error_m": 0.26,
+      "first_seen_s": 5.631298552999397,
+      "confirmed_s": 6.344249222000144
+    },
+    {
+      "name": "stop_sign_object",
+      "class": "stop_sign",
+      "x": -3.2,
+      "y": 1.1,
+      "detected": false
+    },
+    {
+      "name": "lamp_post_object",
+      "class": "lamp_post",
+      "x": -7.0,
+      "y": -0.6,
+      "detected": true,
+      "detection_id": "9",
+      "distance_error_m": 0.045,
+      "first_seen_s": 5.528925365999385,
+      "confirmed_s": 6.240552065999509
+    },
+    {
+      "name": "grey_tote_object",
+      "class": "grey_tote",
+      "x": 3.5,
+      "y": 4.6,
+      "detected": false
+    },
+    {
+      "name": "bowl_object",
+      "class": "bowl",
+      "x": 0.0,
+      "y": -4.0,
+      "detected": true,
+      "detection_id": "5",
+      "distance_error_m": 0.045,
+      "first_seen_s": 3.5607351250000647,
+      "confirmed_s": 4.2573911869994845
+    },
+    {
+      "name": "drill_object",
+      "class": "cordless_drill",
+      "x": 4.2,
+      "y": -6.2,
+      "detected": false
+    },
+    {
+      "name": "hammer_object",
+      "class": "hammer",
+      "x": -0.6,
+      "y": -1.0,
+      "detected": false
+    },
+    {
+      "name": "beer_object",
+      "class": "beer",
+      "x": -1.4,
+      "y": -3.4,
+      "detected": true,
+      "detection_id": "4",
+      "distance_error_m": 0.008,
+      "first_seen_s": 3.4543265829997836,
+      "confirmed_s": 4.149245621999398
+    },
+    {
+      "name": "fire_hydrant_object",
+      "class": "fire_hydrant",
+      "x": 1.4,
+      "y": -3.4,
+      "detected": false
+    },
+    {
+      "name": "construction_cone_object",
+      "class": "construction_cone",
+      "x": 4.2,
+      "y": -3.4,
+      "detected": false
+    },
+    {
+      "name": "cardboard_box_object",
+      "class": "cardboard_box",
+      "x": -4.2,
+      "y": -0.6,
+      "detected": false
+    },
+    {
+      "name": "cricket_ball_object",
+      "class": "cricket_ball",
+      "x": 0.5,
+      "y": 0.5,
+      "detected": false
+    },
+    {
+      "name": "monkey_wrench_object",
+      "class": "monkey_wrench",
+      "x": 1.4,
+      "y": -0.6,
+      "detected": false
+    },
+    {
+      "name": "car_wheel_object",
+      "class": "car_wheel",
+      "x": 4.2,
+      "y": -0.6,
+      "detected": false
+    },
+    {
+      "name": "hokuyo_object",
+      "class": "hokuyo",
+      "x": -1.25,
+      "y": -2.42,
+      "detected": true,
+      "detection_id": "11",
+      "distance_error_m": 0.007,
+      "first_seen_s": 5.837700678999681,
+      "confirmed_s": 6.551426179999908
+    },
+    {
+      "name": "wooden_case_object",
+      "class": "wooden_case",
+      "x": -1.4,
+      "y": 2.2,
+      "detected": false
+    },
+    {
+      "name": "saucepan_object",
+      "class": "saucepan",
+      "x": 1.4,
+      "y": 2.2,
+      "detected": false
+    },
+    {
+      "name": "gear_part_object",
+      "class": "gear_part",
+      "x": 0.2,
+      "y": -1.2,
+      "detected": false
+    },
+    {
+      "name": "bottle_pcd_object",
+      "class": "bottle",
+      "x": -0.56,
+      "y": -3.35,
+      "detected": true,
+      "detection_id": "2",
+      "distance_error_m": 0.227,
+      "first_seen_s": 2.9776995649999662,
+      "confirmed_s": 3.871549352999864
+    },
+    {
+      "name": "doll_pcd_object",
+      "class": "doll",
+      "x": 1.68,
+      "y": -2.34,
+      "detected": false
+    },
+    {
+      "name": "cabinet_main",
+      "class": "cabinet",
+      "x": 4.0,
+      "y": -2.0,
+      "detected": false
+    }
+  ]
+}

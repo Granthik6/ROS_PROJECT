@@ -1,0 +1,260 @@
+[
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.023404383032678402,
+      -2.0293548529506866
+    ],
+    "goal_xy": [
+      0.041215392766157155,
+      -3.277975286503387
+    ],
+    "path_points": 26,
+    "visited_cells": 2,
+    "elapsed_s": 3.103
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.04538816996161161,
+      -2.007039534425515
+    ],
+    "goal_xy": [
+      0.041215392766157155,
+      -3.277975286503387
+    ],
+    "path_points": 27,
+    "visited_cells": 2,
+    "elapsed_s": 38.203
+  },
+  {
+    "event": "path_blocked",
+    "robot_xy": [
+      -0.0031291645033719195,
+      -2.2362518544924583
+    ],
+    "goal_xy": [
+      0.041215392766157155,
+      -3.277975286503387
+    ],
+    "blocked_tile": [
+      0,
+      -6
+    ],
+    "visited_cells": 2,
+    "elapsed_s": 43.246
+  },
+  {
+    "event": "blocked_path_escape",
+    "robot_xy": [
+      -0.0031291645033719195,
+      -2.2362518544924583
+    ],
+    "heading": 2.501662560309558,
+    "visited_cells": 2,
+    "elapsed_s": 43.246
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.010215187246672815,
+      -2.234694357028979
+    ],
+    "goal_xy": [
+      -1.2087846258602943,
+      -1.8779752656417612
+    ],
+    "path_points": 31,
+    "visited_cells": 2,
+    "elapsed_s": 46.937
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.9828191149330645,
+      -1.9479910322344398
+    ],
+    "goal_xy": [
+      1.0411180470122883,
+      -1.9279752663868193
+    ],
+    "path_points": 40,
+    "visited_cells": 5,
+    "elapsed_s": 76.9
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.9443194963178901,
+      -2.1457927656073683
+    ],
+    "goal_xy": [
+      0.5911180403067657,
+      -1.9779752671318773
+    ],
+    "path_points": 30,
+    "visited_cells": 7,
+    "elapsed_s": 111.969
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.372421386909714,
+      -1.9991458745572803
+    ],
+    "goal_xy": [
+      0.791118043286998,
+      -1.4279752589362387
+    ],
+    "path_points": 34,
+    "visited_cells": 7,
+    "elapsed_s": 147.072
+  },
+  {
+    "event": "path_blocked",
+    "robot_xy": [
+      0.009442858332360415,
+      -1.7774899822038286
+    ],
+    "goal_xy": [
+      0.791118043286998,
+      -1.4279752589362387
+    ],
+    "blocked_tile": [
+      1,
+      -4
+    ],
+    "visited_cells": 8,
+    "elapsed_s": 172.16
+  },
+  {
+    "event": "blocked_path_escape",
+    "robot_xy": [
+      0.009442858332360415,
+      -1.7774899822038286
+    ],
+    "heading": -2.1432729611406156,
+    "visited_cells": 8,
+    "elapsed_s": 172.16
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      0.008770686811706748,
+      -1.78351890754647
+    ],
+    "goal_xy": [
+      -0.0025693645422193434,
+      -3.0546803133432183
+    ],
+    "path_points": 27,
+    "visited_cells": 8,
+    "elapsed_s": 175.992
+  },
+  {
+    "event": "path_blocked",
+    "robot_xy": [
+      0.06121538559580535,
+      -1.9315633358329225
+    ],
+    "goal_xy": [
+      -0.0025693645422193434,
+      -3.0546803133432183
+    ],
+    "blocked_tile": [
+      0,
+      -6
+    ],
+    "visited_cells": 8,
+    "elapsed_s": 184.005
+  },
+  {
+    "event": "blocked_path_escape",
+    "robot_xy": [
+      0.06121538559580535,
+      -1.9315633358329225
+    ],
+    "heading": 3.1203821668384117,
+    "visited_cells": 8,
+    "elapsed_s": 184.005
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "sensor_probe",
+    "robot_xy": [
+      0.0007219899811438148,
+      -1.931377247273735
+    ],
+    "goal_xy": [
+      -0.5967436315878283,
+      -2.7332717734074414
+    ],
+    "path_points": 1,
+    "visited_cells": 8,
+    "elapsed_s": 186.77
+  },
+  {
+    "event": "path_blocked",
+    "robot_xy": [
+      -0.17094320858109555,
+      -2.177225763987999
+    ],
+    "goal_xy": [
+      -0.5967436315878283,
+      -2.7332717734074414
+    ],
+    "blocked_tile": [
+      -2,
+      -6
+    ],
+    "visited_cells": 8,
+    "elapsed_s": 195.626
+  },
+  {
+    "event": "blocked_path_escape",
+    "robot_xy": [
+      -0.17094320858109555,
+      -2.177225763987999
+    ],
+    "heading": 0.616970759334976,
+    "visited_cells": 8,
+    "elapsed_s": 195.626
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "frontier",
+    "robot_xy": [
+      -0.1640524265106443,
+      -2.1672603303288573
+    ],
+    "goal_xy": [
+      1.097430651849058,
+      -2.004680297696999
+    ],
+    "path_points": 24,
+    "visited_cells": 8,
+    "elapsed_s": 200.054
+  },
+  {
+    "event": "goal_selected",
+    "goal_kind": "sensor_probe",
+    "robot_xy": [
+      0.8325287209628848,
+      -1.9945259574539211
+    ],
+    "goal_xy": [
+      2.214845483414231,
+      -1.7727143972366297
+    ],
+    "path_points": 1,
+    "visited_cells": 10,
+    "elapsed_s": 218.086
+  }
+]

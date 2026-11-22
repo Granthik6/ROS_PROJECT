@@ -1,0 +1,5 @@
+RANDOM: 12/26 objects, 28 visited cells, actions forward/left/right=1598/1608/1555
+/root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_05_seed_46_attempt_1/summary.json
+Verified random result: 12/26 in 12.000 minutes
+Missing: table_main, construction_barrel_object, postbox_object, stop_sign_object, lamp_post_object, grey_tote_object, hammer_object, beer_object, cardboard_box_object, cricket_ball_object, monkey_wrench_object, hokuyo_object, wooden_case_object, saucepan_object
+Summary: /root/ros2_ws/rl_evaluations/random_26_17_20261122_trial_05_seed_46_attempt_1/summary.json
