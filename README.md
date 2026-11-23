@@ -16,8 +16,6 @@ The final experiment consists of **17 saved trials per configuration (51 total)*
 
 **Interpretation:** DDQN and PPO were evaluated with SLAM-based global coverage, inspection turns, confirmation, and safety recovery. Random was evaluated without those routines. The table compares the *complete configurations*, not isolated algorithm quality. A new run may find fewer than 26 targets; the commands below do not guarantee 26/26. Object counts are class-and-position matches against the 26 known SDF instances used only by the evaluator.
 
-One supplementary seed-42 DDQN run with all assistance disabled found **8/26 in 12 minutes**. It is stored at `rl_evaluations/ddqn_policy_only_26_seed42_20261123/` and is separate from the 51 primary trials. Its 4,674 logged actions all came from the saved policy; only 56 were forward actions. This single run does not establish an average unassisted performance.
-
 ## Repository contents
 
 - `src/robot_tasks/`: ROS 2 package, nodes, launch files, SDF worlds, and local PCD models.
@@ -25,7 +23,7 @@ One supplementary seed-42 DDQN run with all assistance disabled found **8/26 in 
 - `scripts/`: trial runners, report scripts, and supporting tools. The `run_all26_*` scripts are the easiest entry points.
 - `rl_runs/`: final DDQN and PPO policy checkpoints.
 - `realistic_sim_yolo_runs/`, `pcd_yolo_runs/`, `yolo11n.pt`: the four detector weights referenced by the final launch path.
-- `rl_evaluations/`: the three 17-trial summaries, all 51 original per-trial result directories, and one supplementary DDQN policy-only trial, including `summary.json`, object-match records, and step/visit histories.
+- `rl_evaluations/`: the three 17-trial summaries and all 51 original per-trial result directories, including `summary.json`, object-match records, and step/visit histories.
 - `paper/`: IEEE-style `main.tex` and the figures used in the manuscript. The Gazebo image is an illustration captured from the same 26-object SDF world, not a trial result.
 
 Large training datasets, replay buffers, old candidate checkpoints, and ROS build output are not required for evaluating the final saved policies and are not included. Some older candidate worlds and utilities remain in the ROS package; the final 26-object path above identifies the experiment reported in the paper.
@@ -66,18 +64,6 @@ bash scripts/run_all26_random.sh 12 "random_demo_$(date +%s)" 42
 ```
 
 The DDQN/PPO runs use saved deterministic policies plus the assistance described above. Random samples forward, left, or right uniformly. The scripts set different ROS domain IDs and Gazebo ports, but sequential execution is simplest.
-
-For a **new unassisted DDQN trial** on the same 26-object world, use a fresh run ID:
-
-```bash
-cd /root/ros2_ws
-export ROBOT_TASKS_TRIAL_PROFILE=policy_only
-export ROBOT_TASKS_TRIAL_WORLD=/root/ros2_ws/src/robot_tasks/worlds/spaced_objects_reliable_26_v4.world
-export ROBOT_TASKS_DETECTOR_MODEL=/root/ros2_ws/realistic_sim_yolo_runs/all36_balanced_finetune_20261115/weights/best.pt
-export ROBOT_TASKS_INFERENCE_IMGSZ=640
-export ROBOT_TASKS_CONFIRM_NEW_DETECTIONS=false
-bash scripts/run_policy_only_trial.sh ddqn /root/ros2_ws/rl_runs/ddqn_safe_50000/model_final.zip "ddqn_policy_only_$(date +%s)" 42 12 false
-```
 
 ## Inspect the saved experiments
 

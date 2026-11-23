@@ -15,7 +15,7 @@ Andhra Pradesh, India\\
 granthikranadheer.t24@iiits.in}}
 \maketitle
 \begin{abstract}
-Autonomous object discovery couples navigation with imperfect perception: a mobile robot must acquire views of distinct targets while avoiding repeated coverage and obstacles. This paper evaluates a ROS 2 Humble and Gazebo 11 system with a simulated TurtleBot3 Burger, 360-beam LiDAR, RGB--depth sensing, a fine-tuned YOLO11n detector, and world-frame instance matching. The final world contains 26 target instances in an 18\,m by 18\,m bounded region. We analyze original records from 17 trials each for deterministic Double Deep Q-Network (DDQN) and Proximal Policy Optimization (PPO) policies supplemented by map-based coverage, inspection, and safety routines, and for unassisted uniform-random exploration. Each trial used one of the same 17 seeds and ended at 26 matches or 12 minutes. Mean counts were 25.41, 25.24, and 19.35 for DDQN, PPO, and Random; full-discovery counts were 11/17, 9/17, and 1/17. Among successful trials, mean completion times were 3.02, 3.05, and 6.94 minutes. Only 3.4\% and 3.3\% of DDQN and PPO logged actions, respectively, were applied directly from their policies; other actions came from assistance. A supplementary, single-seed DDQN policy-only run matched 8/26 in 12 minutes, versus 26/26 in 2.9 minutes for its assisted counterpart. Thus, the primary results compare complete evaluated control configurations in one simulated world, rather than establish intrinsic superiority of a learning algorithm. We quantify variability and right-censored completion and discuss limitations of matching detections to the 26 target instances.
+Autonomous object discovery couples navigation with imperfect perception: a mobile robot must acquire views of distinct targets while avoiding repeated coverage and obstacles. This paper evaluates a ROS 2 Humble and Gazebo 11 system with a simulated TurtleBot3 Burger, 360-beam LiDAR, RGB--depth sensing, a fine-tuned YOLO11n detector, and world-frame instance matching. The final world contains 26 target instances in an 18\,m by 18\,m bounded region. We analyze original records from 17 trials each for deterministic Double Deep Q-Network (DDQN) and Proximal Policy Optimization (PPO) policies supplemented by map-based coverage, inspection, and safety routines, and for unassisted uniform-random exploration. Each trial used one of the same 17 seeds and ended at 26 matches or 12 minutes. Mean counts were 25.41, 25.24, and 19.35 for DDQN, PPO, and Random; full-discovery counts were 11/17, 9/17, and 1/17. Among successful trials, mean completion times were 3.02, 3.05, and 6.94 minutes. Only 3.4\% and 3.3\% of DDQN and PPO logged actions, respectively, were applied directly from their policies; other actions came from assistance. Thus, the results compare complete evaluated control configurations in one simulated world, rather than establish intrinsic superiority of a learning algorithm. We quantify variability and right-censored completion and discuss limitations of matching detections to the 26 target instances.
 \end{abstract}
 \begin{IEEEkeywords}
 robotic exploration, object discovery, ROS 2, Gazebo, YOLO, Double DQN, PPO, mobile robots
@@ -250,9 +250,7 @@ For DDQN and PPO, \texttt{GlobalCoverageAssist} subscribes to the SLAM occupancy
 \subsection{Final Evaluation Protocol}
 All 51 final runs use \texttt{spaced\_objects\_reliable\_26\_v4.world}, the same principal balanced YOLO checkpoint, start pose, target definition, and a 12-minute maximum. Each method has 17 records, seeds 42--58. A run stops at 26 matched instances or the wall-clock deadline; startup precedes the timed loop. World matching has the same 1.25-m tolerance. Thresholds relevant to the 26 targets are shared by all series: base 0.25, bottle/doll 0.20, and gear part 0.15. Table~\ref{tab:setup} summarizes configuration.
 
-The three original series are \texttt{ddqn\_26\_17\_20261120}, \texttt{ppo\_26\_17\_20261121}, and \texttt{random\_26\_17\_20261122} under \texttt{rl\_evaluations/}. Each of the 51 CSV rows was cross-checked against its unique per-run \texttt{summary.json} and \texttt{world\_coverage\_report.json}. All rows had target count 26 and the indicated world/model; all recorded \texttt{guided\_completion\_enabled=false}. Only these final 26-instance series are used for the primary analysis.
-
-One additional seed-42 DDQN run, \texttt{ddqn\_policy\_only\_26\_seed42\_20261123}, uses the same world, robot start, saved DDQN checkpoint, detector checkpoint, action duration, and 12-minute cap. It disables global coverage, inspection sweeps, detection-confirmation turns, safety recovery, and guided completion. This supplementary ablation is excluded from the 51-trial aggregate statistics.
+The three original series are \texttt{ddqn\_26\_17\_20261120}, \texttt{ppo\_26\_17\_20261121}, and \texttt{random\_26\_17\_20261122} under \texttt{rl\_evaluations/}. Each of the 51 CSV rows was cross-checked against its unique per-run \texttt{summary.json} and \texttt{world\_coverage\_report.json}. All rows had target count 26 and the indicated world/model; all recorded \texttt{guided\_completion\_enabled=false}. Only these final 26-instance runs are analyzed.
 
 \begin{table}[t]
 \caption{Final evaluation configuration}
@@ -413,22 +411,6 @@ Figure~\ref{fig:objectfreq} shows per-instance matching frequency. The grey tote
 \label{fig:traj}
 \end{figure*}
 
-\subsection{Exploratory DDQN Policy-Only Ablation}
-Table~\ref{tab:ablation} contrasts the supplementary policy-only run with the original assisted DDQN seed-42 run. Both used the same world, detector, policy checkpoint, and nominal seed. The unassisted run reached 8/26 at the 12-minute limit; all 4,674 applied actions were logged as policy actions, including only 56 forward actions. The assisted run reached 26/26 in 2.90 minutes, with 48 of 1,129 actions logged as directly policy-sourced. This single paired observation illustrates the control difference but cannot estimate typical policy-only performance or isolate a statistically reliable assistance effect.
-
-\begin{table}[t]
-\caption{Supplementary seed-42 DDQN ablation (excluded from the 51 primary trials)}
-\label{tab:ablation}
-\centering\footnotesize
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-Control & Matches & Time (min) & Policy actions\\ \midrule
-Assisted & 26/26 & 2.90 & 48/1129\\
-Policy only & 8/26 & 12.00 & 4674/4674\\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \section{Discussion}
 The final records show a substantial \emph{system-level} difference between the assisted configurations and unassisted Random in this world. Assisted systems had high average matching coverage and more complete trials. DDQN had two more full completions than PPO, but their mean counts and successful times were close, and the success intervals overlap. The experiment does not isolate intrinsic DDQN-versus-PPO performance.
 
@@ -439,7 +421,7 @@ The detection metric also has a narrow meaning. It accepts repeated observations
 \section{Limitations and Future Work}
 This study uses one deliberately spaced 26-object Gazebo world, one start pose, one detector stack, and 17 seed values per method. Results may not transfer to cluttered rooms, new lighting, moving objects, or physical robots. Aligned nominal seeds do not guarantee bitwise-reproducible simulation and perception. Training conditions differ between the final policies, and DDQN stopped short of its requested step count. The short PPO training record and limited DDQN episode summaries do not establish learning dynamics.
 
-The main limitation is unequal assistance. The one supplementary DDQN policy-only run is insufficient to characterize policy-only performance across seeds. A future factorial study should evaluate each policy with and without the same coverage, inspection, confirmation, and safety modules, with matched training budgets and multiple worlds. Further work should manually audit image-to-world matches, directly estimate false-match and missed-instance rates, and test sensor/map noise. Physical-robot trials would be needed to assess transfer beyond simulation.
+The main limitation is unequal assistance. A future factorial study should evaluate each policy with and without the same coverage, inspection, confirmation, and safety modules, with matched training budgets and multiple worlds. Further work should manually audit image-to-world matches, directly estimate false-match and missed-instance rates, and test sensor/map noise. Physical-robot trials would be needed to assess transfer beyond simulation.
 
 \section{Conclusion}
 An integrated ROS 2--Gazebo system combined simulated RGB--depth perception, YOLO11n detection, 372-dimensional policy observations, and world-frame instance scoring. Across 51 verified final trials, assisted DDQN and PPO averaged 25.41 and 25.24 of 26 matched objects, versus 19.35 for unassisted Random; their full-discovery counts were 11, 9, and 1. Mean successful completion times were approximately 3.02, 3.05, and 6.94 minutes. Because assistance supplied nearly all realized DDQN/PPO actions, the evidence establishes performance of the complete evaluated configurations in one simulated world rather than a causal ranking of the policies. Equal-assistance ablations and independent match validation are the next essential tests.
