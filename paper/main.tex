@@ -4,6 +4,7 @@
 \usepackage{booktabs}
 \usepackage{cite}
 \usepackage{url}
+\usepackage{placeins}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \begin{document}
@@ -287,7 +288,7 @@ $\bar T_{\rm complete}=\sum_i F_iT_i/\sum_i F_i$; mean elapsed duration is $17^{
 \subsection{Per-Trial Object Coverage}
 Table~\ref{tab:trials} contains all 51 final result rows as matched counts and elapsed times; Fig.~\ref{fig:trials} shows the counts. The random configuration reached 8/26 in trials 8 and 11, illustrating larger across-seed variability than the two assisted configurations. Timed-out trials remain in all analyses and are never imputed as successful completions.
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{All 51 final trials. Each method has matched objects $N$ and elapsed minutes $T$. A time near 12 min with $N<26$ is a timeout. Trial number corresponds to the same nominal seed across methods.}
 \label{tab:trials}
 \centering\footnotesize
@@ -316,7 +317,7 @@ Trial & Seed & $N$ & $T$ & $N$ & $T$ & $N$ & $T$\\ \midrule
 \end{tabular}
 \end{table*}
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=0.84\textwidth]{figures/trial_comparison.png}
 \caption{Matched target instances in each of 17 trials, calculated from per-run records. The dashed line marks complete 26/26 discovery.}
@@ -326,7 +327,7 @@ Trial & Seed & $N$ & $T$ & $N$ & $T$ & $N$ & $T$\\ \midrule
 \subsection{Aggregate Coverage and Completion}
 Table~\ref{tab:aggregate} gives independently recomputed summaries. DDQN and PPO configurations matched almost all instances on average (97.74\% and 97.06\% coverage), versus 74.43\% for Random. DDQN's mean exceeds PPO's by 0.18 object, small relative to their trial variability. Figure~\ref{fig:mean} shows individual counts and sample-SD bars. Full-discovery proportions were 64.7\%, 52.9\%, and 5.9\% (Fig.~\ref{fig:success}); 95\% Wilson intervals are wide: 41.3--82.7\%, 31.0--73.8\%, and 1.0--27.0\%. These quantify uncertainty under the evaluated configurations, not policy-only effects.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Recomputed final-series summaries; SD is sample standard deviation}
 \label{tab:aggregate}
 \centering\footnotesize
@@ -347,14 +348,14 @@ Mean cumulative reward & $-220.29$ & $-321.18$ & $-1231.84$\\
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\columnwidth]{figures/average_objects_detected.png}
 \caption{Mean matched objects, individual observations, and $\pm1$ sample SD. The dashed line is the 26-object maximum. SD is variability, not a confidence interval.}
 \label{fig:mean}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\columnwidth]{figures/completion_success_rate.png}
 \caption{Full-discovery frequency, with successful-trial counts and 95\% Wilson intervals for each $n=17$ configuration.}
@@ -364,21 +365,21 @@ Mean cumulative reward & $-220.29$ & $-321.18$ & $-1231.84$\\
 \subsection{Exploration and Completion Time}
 Among successful runs, mean time to the final match was 3.019\,min for DDQN, 3.046\,min for PPO, and 6.944\,min for Random; the latter estimate has only one observation (Fig.~\ref{fig:times}). Mean duration across \emph{all} runs was 6.190, 7.261, and 11.704\,min because incomplete runs continued to the deadline. Figure~\ref{fig:completion} retains unsuccessful runs as censored observations and displays the fraction completed by each time. Figure~\ref{fig:discovery} uses each object's saved confirmation timestamp to compute median cumulative matched counts across all 17 runs per method, without interpolating fictitious detections.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\columnwidth]{figures/completion_time_comparison.png}
 \caption{Completion times \emph{only among successful trials}; points are actual runs, boxes show quartiles, and $n$ is shown for each method. Timed-out runs are excluded here.}
 \label{fig:times}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\columnwidth]{figures/completion_cumulative.png}
 \caption{Fraction reaching 26/26 by elapsed time. All 17 runs per method contribute; unfinished runs are right-censored at their observed time limits.}
 \label{fig:completion}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\columnwidth]{figures/discovery_over_time.png}
 \caption{Median trial-level cumulative matched instances, calculated from saved confirmation times. Counts remain fixed after each trial ends.}
@@ -390,28 +391,27 @@ The action logs give the strongest interpretation check. Of 41,002 DDQN steps, 1
 
 Figure~\ref{fig:objectfreq} shows per-instance matching frequency. The grey tote and monkey wrench were each missed in two DDQN trials; lamp post, grey tote, and monkey wrench were each missed in three PPO trials. Random missed the grey tote in nine trials and the cricket ball and Hokuyo in eight each. These are world-match frequencies, not per-class detector recall. Figure~\ref{fig:traj} shows the common seed-42 trajectories, selected by seed rather than outcome. Assisted runs matched all 26 while remaining near the start; Random travelled farther but timed out at 23/26. This is consistent with wide-area visual observation and repeated turning. A match does not require physical approach to a target.
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=0.74\textwidth]{figures/control_sources.png}
 \caption{Applied-action sources aggregated across all \texttt{visit\_history.csv} records. Only about 3\% of learned-configuration steps directly applied the saved policy action.}
 \label{fig:control}
 \end{figure*}
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/object_frequency.png}
 \caption{Per-instance frequency of world matches out of 17 trials per method. Target IDs correspond to Table~\ref{tab:inventory}; person instances and point-cloud bottle/doll instances are counted separately.}
 \label{fig:objectfreq}
 \end{figure*}
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=0.86\textwidth]{figures/seed42_trajectories.png}
 \caption{Saved odometry trajectories for common seed 42 (trial 1); grey points mark SDF target coordinates for context. DDQN and PPO reached 26/26; Random reached 23/26. The approximate coordinate alignment follows the fixed launch start pose.}
 \label{fig:traj}
 \end{figure*}
 
-\clearpage
 \section{Discussion}
 The final records show a substantial \emph{system-level} difference between the assisted configurations and unassisted Random in this world. Assisted systems had high average matching coverage and more complete trials. DDQN had two more full completions than PPO, but their mean counts and successful times were close, and the success intervals overlap. The experiment does not isolate intrinsic DDQN-versus-PPO performance.
 
@@ -424,6 +424,7 @@ This study uses one deliberately spaced 26-object Gazebo world, one start pose, 
 
 The main limitation is unequal assistance. A future factorial study should evaluate each policy with and without the same coverage, inspection, confirmation, and safety modules, with matched training budgets and multiple worlds. Further work should manually audit image-to-world matches, directly estimate false-match and missed-instance rates, and test sensor/map noise. Physical-robot trials would be needed to assess transfer beyond simulation.
 
+\FloatBarrier
 \section{Conclusion}
 An integrated ROS 2--Gazebo system combined simulated RGB--depth perception, YOLO11n detection, 372-dimensional policy observations, and world-frame instance scoring. Across 51 verified final trials, assisted DDQN and PPO averaged 25.41 and 25.24 of 26 matched objects, versus 19.35 for unassisted Random; their full-discovery counts were 11, 9, and 1. Mean successful completion times were approximately 3.02, 3.05, and 6.94 minutes. Because assistance supplied nearly all realized DDQN/PPO actions, the evidence establishes performance of the complete evaluated configurations in one simulated world rather than a causal ranking of the policies. Equal-assistance ablations and independent match validation are the next essential tests.
 
