@@ -32,7 +32,7 @@ Large training datasets, replay buffers, old candidate checkpoints, and ROS buil
 
 ## Setup (tested on Ubuntu 22.04, ROS 2 Humble, Gazebo Classic 11)
 
-The existing launch scripts expect the workspace at `/root/ros2_ws` and the ROS 2 installation at `/opt/ros/humble`. Install ROS 2 Humble, Gazebo ROS integration, TurtleBot3 Gazebo models, SLAM Toolbox, `colcon`, and the ROS dependencies declared in `src/robot_tasks/package.xml` before building. The Python package requirements are in `requirements.txt`. A system with a different ROS distribution or workspace path needs corresponding script-path changes.
+The existing launch scripts expect the workspace at `/root/ros2_ws` and the ROS 2 installation at `/opt/ros/humble`. A GitHub clone supplies the project source, models, and saved weights; ROS 2 Humble, Gazebo Classic, TurtleBot3 Gazebo models, SLAM Toolbox, `colcon`, and system libraries must be installed separately. Install and initialize `rosdep` before using the setup block below. The Python package requirements are in `requirements.txt`. A system with a different ROS distribution or workspace path needs corresponding script-path changes.
 
 ```bash
 git clone https://github.com/Granthik6/ROS_PROJECT.git /root/ros2_ws
@@ -44,7 +44,7 @@ colcon build --packages-select robot_tasks --symlink-install
 source install/setup.bash
 ```
 
-The final runner adds `src/robot_tasks/models` and `gazebo_models` to `GAZEBO_MODEL_PATH`, so the included final world assets can be resolved without a separate model download. The saved policy and detector paths in the runners are relative to the fixed `/root/ros2_ws` workspace.
+The final runner adds `src/robot_tasks/models`, `gazebo_models`, and the installed TurtleBot3 models to `GAZEBO_MODEL_PATH`. The saved policy and detector paths in the runners are relative to the fixed `/root/ros2_ws` workspace.
 
 ## Run a new 26-object trial
 

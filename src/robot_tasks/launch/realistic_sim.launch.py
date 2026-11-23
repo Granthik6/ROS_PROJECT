@@ -23,9 +23,14 @@ def generate_launch_description():
     )
 
     model_path = os.path.join(robot_tasks_dir, 'models')
+    workspace_model_path = '/root/ros2_ws/gazebo_models'
+    turtlebot3_model_path = os.path.join(
+        get_package_share_directory('turtlebot3_gazebo'), 'models')
     existing_model_path = os.environ.get('GAZEBO_MODEL_PATH', '')
     gazebo_model_path = os.pathsep.join(
-        path for path in (model_path, existing_model_path) if path
+        path for path in (
+            model_path, workspace_model_path, turtlebot3_model_path,
+            existing_model_path) if path
     )
 
     turtlebot3_description_dir = get_package_share_directory(

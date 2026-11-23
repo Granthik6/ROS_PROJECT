@@ -35,7 +35,13 @@ source "$workspace/install/setup.bash"
 source /usr/share/gazebo-11/setup.sh
 set -u
 export TURTLEBOT3_MODEL=burger
-export GAZEBO_MODEL_PATH="$workspace/src/robot_tasks/models:$workspace/gazebo_models:/root/gazebo_models:/root/.gazebo/models:${GAZEBO_MODEL_PATH:-}"
+turtlebot3_prefix=$(ros2 pkg prefix turtlebot3_gazebo)
+turtlebot3_models="$turtlebot3_prefix/share/turtlebot3_gazebo/models"
+if [[ ! -d "$turtlebot3_models/turtlebot3_common" ]]; then
+  echo "TurtleBot3 Gazebo models unavailable: $turtlebot3_models" >&2
+  exit 2
+fi
+export GAZEBO_MODEL_PATH="$workspace/src/robot_tasks/models:$workspace/gazebo_models:$turtlebot3_models:/root/gazebo_models:/root/.gazebo/models:${GAZEBO_MODEL_PATH:-}"
 export LIBGL_ALWAYS_SOFTWARE=1
 export GAZEBO_MASTER_URI=${ROBOT_TASKS_GAZEBO_MASTER_URI:-http://127.0.0.1:11486}
 export GAZEBO_MODEL_DATABASE_URI=
