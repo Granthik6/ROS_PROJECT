@@ -4,6 +4,7 @@
 /log/
 /ros_logs/
 /.matplotlib-cache/
+/paper/
 __pycache__/
 *.py[cod]
 .pytest_cache/

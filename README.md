@@ -2,7 +2,7 @@
 
 This repository contains the **final 26-object simulation** used to evaluate three exploration configurations: Double Deep Q-Network (DDQN), Proximal Policy Optimization (PPO), and uniform Random exploration. The robot is a simulated TurtleBot3 Burger. An RGB-depth camera, LiDAR, odometry, ROS 2, Gazebo Classic, a fine-tuned YOLO detector, and world-frame object matching form the experimental pipeline.
 
-The final experiment consists of **17 saved trials per configuration (51 total)**, with seeds 42–58 and a 12-minute limit per trial. The archived trial records all use `src/robot_tasks/worlds/spaced_objects_reliable_26_v4.world`. The 26 scored instances include both `bottle_pcd_object` and `doll_pcd_object`; their full inventory is in `26_OBJECT_SHOWCASE.md` and `paper/main.tex`.
+The final experiment consists of **17 saved trials per configuration (51 total)**, with seeds 42–58 and a 12-minute limit per trial. The archived trial records all use `src/robot_tasks/worlds/spaced_objects_reliable_26_v4.world`. The 26 scored instances include both `bottle_pcd_object` and `doll_pcd_object`; their full inventory is in `26_OBJECT_SHOWCASE.md`.
 
 The final world has exactly 26 scored object instances. The detector can recognize labels outside this target inventory, but those labels are not additional objects in the evaluated world.
 
@@ -26,9 +26,8 @@ The final world has exactly 26 scored object instances. The detector can recogni
 - `rl_runs/`: final DDQN and PPO policy checkpoints.
 - `realistic_sim_yolo_runs/`, `pcd_yolo_runs/`, `yolo11n.pt`: the four detector weights referenced by the final launch path.
 - `rl_evaluations/`: the three 17-trial summaries and all 51 original per-trial result directories, including `summary.json`, object-match records, and step/visit histories.
-- `paper/`: IEEE-style `main.tex` and the figures used in the manuscript. The Gazebo image is an illustration captured from the same 26-object SDF world, not a trial result.
 
-Large training datasets, replay buffers, old candidate checkpoints, and ROS build output are not required for evaluating the final saved policies and are not included. Some older candidate worlds and utilities remain in the ROS package; the final 26-object path above identifies the experiment reported in the paper.
+Large training datasets, replay buffers, old candidate checkpoints, and ROS build output are not required for evaluating the final saved policies and are not included. Some older candidate worlds and utilities remain in the ROS package; the final 26-object path above identifies the archived experiment.
 
 ## Setup (tested on Ubuntu 22.04, ROS 2 Humble, Gazebo Classic 11)
 
@@ -77,8 +76,6 @@ cat rl_evaluations/random_26_17_20261122/summary.json
 
 The corresponding `results.csv` files contain trial, seed, run ID, matched count, elapsed time, reward, and termination status. Each row points to a per-run directory with the raw summary, `world_coverage_report.json`, action logs, and visit history. The three `run_*_26_17_trials.sh` scripts resume these archived series and skip trials with saved summaries; running them against this repository does **not** create 51 new trials.
 
-## Paper and model attribution
+## Model attribution
 
-Open `paper/main.tex` together with `paper/figures/` in Overleaf. The manuscript reports the final 26-object experiment and distinguishes coverage-assisted DDQN/PPO from unassisted Random. No PDF is stored here.
-
-The models in `gazebo_models/` originate from the [OSRF Gazebo model database](https://github.com/osrf/gazebo_models) and retain their individual `model.config` author metadata. Their upstream license is included at `gazebo_models/LICENSE`. The fine-tuned detector weights were produced from Ultralytics YOLO models; consult the upstream [Ultralytics licensing terms](https://www.ultralytics.com/license) for reuse. The code and paper are project work; no separate code license has been declared in this repository.
+The models in `gazebo_models/` originate from the [OSRF Gazebo model database](https://github.com/osrf/gazebo_models) and retain their individual `model.config` author metadata. Their upstream license is included at `gazebo_models/LICENSE`. The fine-tuned detector weights were produced from Ultralytics YOLO models; consult the upstream [Ultralytics licensing terms](https://www.ultralytics.com/license) for reuse. No separate code license has been declared in this repository.
