@@ -2,6 +2,8 @@
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{cite}
+\usepackage{url}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \begin{document}
@@ -20,24 +22,26 @@ robotic exploration, object discovery, ROS 2, Gazebo, YOLO, Double DQN, PPO, mob
 \end{IEEEkeywords}
 
 \section{Introduction}
-A mobile robot searching for objects must move through a partially observed environment, acquire useful camera views, and distinguish new instances from repeated detections. Frontier exploration drives a robot toward boundaries of mapped and unmapped space; learned exploration and semantic vision offer alternative ways to select informative actions. Object discovery is stricter than geometric coverage: traversing a location does not guarantee recognition of a small, occluded, or misclassified object.
+A mobile robot searching for objects must move through a partially observed environment, acquire useful camera views, and distinguish new instances from repeated detections. Frontier exploration drives a robot toward boundaries of mapped and unmapped space~\cite{yamauchi1997}; learned exploration and semantic vision offer alternative ways to select informative actions~\cite{chaplot2020}. Object discovery is stricter than geometric coverage: traversing a location does not guarantee recognition of a small, occluded, or misclassified object.
 
 Our question is: \emph{How do the final evaluated DDQN-based, PPO-based, and random exploration configurations compare in matched-object coverage and completion time in a controlled ROS 2--Gazebo world?} The term \emph{configuration} matters. Both learned policies were embedded in map-based coverage and inspection controllers, while Random used sampled actions alone. The study therefore measures delivered systems, not a controlled policy-only contrast.
 
 The contributions are: (i) an auditable ROS 2 perception--control--evaluation pipeline combining RGB--depth detections with robotic exploration; (ii) a final 26-instance world and 51 recorded, seed-aligned, time-limited trials; and (iii) an analysis of coverage, completion, time, object-level misses, and the source of applied actions. We do not propose a new reinforcement-learning algorithm or claim physical-robot testing.
 
 \section{Related Work}
-Frontier-based exploration selects reachable boundaries of an occupancy map; coordinated variants account for target cost and utility. Learned exploration systems can combine mapping and policy modules, as in Active Neural SLAM. These works motivate considering map-derived action selection when interpreting a learned controller.
+Frontier-based exploration selects reachable boundaries of an occupancy map~\cite{yamauchi1997}. Learned exploration systems can combine mapping and policy modules, as in Active Neural SLAM~\cite{chaplot2020}. These works motivate considering map-derived action selection when interpreting a learned controller.
 
-Deep Q-learning introduced neural action-value approximation and replay. Double DQN separates online action selection from target-network evaluation to reduce Q-value overestimation. PPO instead improves an actor--critic policy using a clipped probability-ratio objective. Stable-Baselines3 provides the base implementations used here. Neither algorithm specifies the perception, safety, or coverage controller around it.
+Deep Q-learning introduced neural action-value approximation and replay~\cite{mnih2015}. Double DQN separates online action selection from target-network evaluation to reduce Q-value overestimation~\cite{vanhasselt2016}. PPO instead improves an actor--critic policy using a clipped probability-ratio objective~\cite{schulman2017}. Stable-Baselines3 provides the base implementations used here~\cite{raffin2021}. Neither algorithm specifies the perception, safety, or coverage controller around it.
 
-YOLO predicts classes and boxes from an image; the deployed principal model is an Ultralytics YOLO11n variant. ROS 2 provides message passing; Gazebo simulates sensing and dynamics; and SLAM Toolbox supplies the occupancy map used by assisted configurations. This paper examines the joint behavior of those components and audits the effective control mix.
+YOLO predicts classes and boxes from an image~\cite{redmon2016}; the deployed principal model is an Ultralytics YOLO11n variant~\cite{ultralyticsmodels}. ROS 2 provides message passing~\cite{macenski2022}; Gazebo simulates sensing and dynamics~\cite{koenig2004}; and SLAM Toolbox supplies the occupancy map used by assisted configurations~\cite{macenski2021slam}. This paper examines the joint behavior of those components and audits the effective control mix.
 
 \section{System Architecture}
 \subsection{Simulation and Robot}
 The final experiment uses Gazebo Classic 11.10.2, an SDF 1.6 world, and ROS 2 Humble. The simulated TurtleBot3 Burger has differential drive, odometry, a 360-sample planar LiDAR (0.12--3.5\,m), and a depth camera (about 60-degree horizontal field of view, 0.10--10\,m depth limits). The model publishes \texttt{/scan}, \texttt{/odom}, \texttt{/camera/rgb/image\_raw}, and \texttt{/camera/depth/points}; motion arrives on \texttt{/cmd\_vel}. No physical sensors were tested.
 
-Four walls bound the world at $x=\pm9$\,m and $y=-11,7$\,m. The robot starts at $(0,-2)$\,m. The 26 scored SDF includes comprise two person instances, point-cloud-derived bottle and doll models, a cabinet, and other everyday or industrial objects. Their model origins span $x=-7$ to $7$\,m and $y=-9$ to $4.6$\,m; ten have origin height above 0.10\,m. The cabinet is a physical obstacle and a scored target because it is an included model. Figure~\ref{fig:gazebo26} shows a fresh Gazebo render of the same final world used in all 51 trials; the robot was placed at the recorded start pose for this illustration. Figure~\ref{fig:layout} is a coordinate-derived schematic of that world. Neither illustration is a detection or trial outcome. The display stands and boundary walls are environment structures, not scored targets. Table~\ref{tab:inventory} lists every scored instance, its SDF pose, its scored class, and the frequency of a match in each 17-trial series.
+Four walls bound the world at $x=\pm9$\,m and $y=-11,7$\,m. The robot starts at $(0,-2)$\,m. The 26 scored SDF includes comprise two person instances, point-cloud-derived bottle and doll models, a cabinet, and other everyday or industrial objects. Their model origins span $x=-7$ to $7$\,m and $y=-9$ to $4.6$\,m; ten have origin height above 0.10\,m. The cabinet is a physical obstacle and a scored target because it is an included model. Figure~\ref{fig:gazebo26} shows a new Gazebo capture of the final world used in all 51 trials, obtained outside the timed trials. The Hokuyo laser-ray \emph{visualization} was disabled only for this capture to remove blue ray fans; the target layout and model geometry were unchanged. Figure~\ref{fig:layout} is a coordinate-derived schematic of that world. Neither illustration is a trial outcome. The display stands and boundary walls are environment structures, not scored targets. Table~\ref{tab:inventory} lists every scored instance, its SDF pose, its scored class, and the frequency of a match in each 17-trial series.
+
+\paragraph{Model provenance.} The 24 non-PCD target models were taken from the Open Robotics (OSRF) Gazebo model database at \url{https://github.com/osrf/gazebo_models}, local checkout \texttt{8163eb4b5e7e21985c6591d1c0bfb56468c0093f}~\cite{osrfmodels}. Their individual \texttt{model.config} files retain model-author metadata. The remaining two target models, \texttt{pcd\_bottle} and \texttt{pcd\_doll}, were generated locally by \texttt{create\_pcd\_gazebo\_models.py} from \texttt{bottle.pcd} and \texttt{doll.pcd} already present in the project workspace; an external source URL for those original point clouds was not recorded. The assembled world is \texttt{src/robot\_tasks/worlds/spaced\_objects\_reliable\_26\_v4.world}; it and the conversion code are in the project repository~\cite{projectrepo}. These are 26 scored \emph{instances}, not necessarily 26 distinct detector classes.
 
 \begin{table*}[t]
 \caption{The 26 scored object instances in the final SDF world. Positions are SDF model origins in metres, rounded to two decimals. DDQN (D), PPO (P), and Random (R) give the number of trials (out of 17) that matched each instance. IDs correspond to Figs.~\ref{fig:layout} and \ref{fig:objectfreq}.}
@@ -111,7 +115,7 @@ score/.style={draw,dashed,rounded corners,fill=orange!8,align=center,minimum hei
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.82\textwidth]{figures/gazebo_26_object_world.png}
-\caption{Gazebo Classic view of the exact final 26-target SDF world used by DDQN, PPO, and Random, captured separately from the timed trials with the TurtleBot3 at its launch pose. The blue streaks are visible rendering artifacts, not robot trajectories, detector outputs, or discovered-object counts. The authoritative target positions are given in Table~\ref{tab:inventory}.}
+\caption{Gazebo Classic view of the final 26-target SDF world, captured separately from the 51 timed trials. Hokuyo laser-ray visualization was switched off for this image only; object geometry and placement were unchanged. Target positions are listed in Table~\ref{tab:inventory}.}
 \label{fig:gazebo26}
 \end{figure*}
 
@@ -125,14 +129,14 @@ score/.style={draw,dashed,rounded corners,fill=orange!8,align=center,minimum hei
 \subsection{Object Detection and 3-D Localization}
 The YOLO node approximately synchronizes RGB images and depth point clouds (0.15\,s slop). Inference returns class, bounding box, and confidence. The node publishes JSON detections on \texttt{/yolo/detections} and per-detection confidence on \texttt{/yolo/confidence}. The final 26-target evaluation also uses configured person and bottle/doll fallback detectors. The principal checkpoint is the saved YOLO11n model recorded in all 51 evaluation summaries.
 
-For each box, the code samples a $7\times7$ grid of point-cloud coordinates inside it, discards invalid samples, retains the nearest third (at least three), then computes componentwise medians to estimate camera-frame $(x_c,y_c,z_c)$. Displayed range is $d=\sqrt{x_c^2+y_c^2+z_c^2}$, Euclidean camera range rather than optical-axis depth. TF and odometry transform valid points into the evaluator's world-aligned frame. If depth or TF is unavailable, a class/confidence may still be published but no valid world position is scored. Figure~\ref{fig:yolo} is genuine model inference on a saved \emph{validation image}, not an image from the final trials.
+For each box, the code samples a $7\times7$ grid of point-cloud coordinates inside it, discards invalid samples, retains the nearest third (at least three), then computes componentwise medians to estimate camera-frame $(x_c,y_c,z_c)$. Displayed range is $d=\sqrt{x_c^2+y_c^2+z_c^2}$, Euclidean camera range rather than optical-axis depth. TF and odometry transform valid points into the evaluator's world-aligned frame. If depth or TF is unavailable, a class/confidence may still be published but no valid world position is scored. Figure~\ref{fig:yolo} shows new robot-camera frames from the \emph{same final world}, with actual principal-checkpoint predictions. The frames were captured after the 51 trial series and do not document a trial's object matches.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=\columnwidth]{figures/yolo_validation_detection.png}
-\caption{Authentic YOLO11n prediction of the stop-sign class, represented among the final 26 targets, on a saved simulated validation image. The boxes and confidences are model outputs; this image is not a frame from the 51 trials and does not show the subsequent depth and world-position checks.}
+\includegraphics[width=0.94\textwidth]{figures/yolo_final_world_detection.png}
+\caption{Two newly captured TurtleBot3 RGB views in the final 26-target world. Boxes, labels, and displayed confidences are actual outputs of the principal YOLO11n checkpoint used in all 51 trials, at inference threshold 0.25. Capture and annotation occurred outside the recorded trials; this figure shows 2-D inference, not depth validation, instance matching, or a trial outcome.}
 \label{fig:yolo}
-\end{figure}
+\end{figure*}
 
 The deployed detector checkpoint was fine-tuned for 10 epochs at 640-pixel image size. This paper reports discovery only for the 26 target instances in the final world. A detector-only precision or mAP measurement for exactly this 26-target evaluation was not saved, so no such statistic is claimed.
 
@@ -190,7 +194,7 @@ y_t=r_t+\gamma(1-d_t)Q_{\theta^-}
 \!\left(s_{t+1},\arg\max_a Q_\theta(s_{t+1},a)\right),
 \label{eq:ddqn}
 \end{equation}
-where $d_t$ is the terminal indicator, $\theta$ is the online network, $\theta^-$ is the target network, and $\gamma=0.99$. Replay-buffer samples train a two-hidden-layer, 128-unit-per-layer Q-network with smooth-$L_1$ loss. Saved-model settings are learning rate $10^{-3}$, replay capacity 50,000, batch size 64, target update interval 1,000, and final training epsilon 0.05. Evaluation uses deterministic prediction.
+where $d_t$ is the terminal indicator, $\theta$ is the online network, $\theta^-$ is the target network, and $\gamma=0.99$~\cite{vanhasselt2016}. Replay-buffer samples train a two-hidden-layer, 128-unit-per-layer Q-network with smooth-$L_1$ loss. Saved-model settings are learning rate $10^{-3}$, replay capacity 50,000, batch size 64, target update interval 1,000, and final training epsilon 0.05. Evaluation uses deterministic prediction.
 
 The checkpoint path contains the name \texttt{ddqn\_safe\_50000}, but its training summary and loaded model record \emph{34,763} steps; the run was interrupted, with 40,000 steps requested. Its training world and detector differ from the final evaluation world and detector. The filename is not evidence of 50,000 completed steps.
 
@@ -206,7 +210,7 @@ L^{\mathrm{CLIP}}(\theta)=\mathbb{E}_t\bigl[\min\bigl(
 \label{eq:ppo}
 \end{equation}
 where $\rho_t(\theta)=\pi_\theta(a_t|s_t)/
-\pi_{\theta_{\mathrm{old}}}(a_t|s_t)$, $\hat A_t$ is estimated advantage, and $\epsilon=0.2$ controls update size. Saved settings are learning rate $3\times10^{-4}$, $\gamma=0.99$, GAE parameter 0.95, 250-step rollouts, batch size 50, ten optimization epochs, and zero entropy coefficient. The training record reports 10,000 steps in a different pedestal world with a different detector checkpoint. Evaluation is deterministic. The saved training episodes are not used as results for the final 26-target world.
+\pi_{\theta_{\mathrm{old}}}(a_t|s_t)$, $\hat A_t$ is estimated advantage, and $\epsilon=0.2$ controls update size~\cite{schulman2017}. Saved settings are learning rate $3\times10^{-4}$, $\gamma=0.99$, GAE parameter 0.95, 250-step rollouts, batch size 50, ten optimization epochs, and zero entropy coefficient. The training record reports 10,000 steps in a different pedestal world with a different detector checkpoint. Evaluation is deterministic. The saved training episodes are not used as results for the final 26-target world.
 
 Figure~\ref{fig:rlcompare} contrasts the updates in (\ref{eq:ddqn}) and (\ref{eq:ppo}). DDQN learns from replay and a delayed target network; PPO learns from recent rollouts with actor and critic networks.
 
@@ -277,7 +281,7 @@ S=\frac{100}{17}\sum_{i=1}^{17}F_i.
 \label{eq:metrics}
 \end{equation}
 Successful completion time is
-$\bar T_{\rm complete}=\sum_i F_iT_i/\sum_i F_i$; mean elapsed duration is $17^{-1}\sum_iT_i$ and includes timeouts. These are different estimands. We report sample standard deviation (SD) for counts and 95\% Wilson intervals for completion proportions. A cumulative completion plot retains unsuccessful runs as right-censored at their time limit, consistent with product-limit analysis. The small sample and assistance imbalance argue against a causal algorithm ranking. Reward is descriptive only: overridden actions and different training conditions limit its comparability.
+$\bar T_{\rm complete}=\sum_i F_iT_i/\sum_i F_i$; mean elapsed duration is $17^{-1}\sum_iT_i$ and includes timeouts. These are different estimands. We report sample standard deviation (SD) for counts and 95\% Wilson intervals~\cite{wilson1927} for completion proportions. A cumulative completion plot retains unsuccessful runs as right-censored at their time limit. The small sample and assistance imbalance argue against a causal algorithm ranking. Reward is descriptive only: overridden actions and different training conditions limit its comparability.
 
 \section{Results}
 \subsection{Per-Trial Object Coverage}
@@ -421,5 +425,22 @@ The main limitation is unequal assistance. A future factorial study should evalu
 
 \section{Conclusion}
 An integrated ROS 2--Gazebo system combined simulated RGB--depth perception, YOLO11n detection, 372-dimensional policy observations, and world-frame instance scoring. Across 51 verified final trials, assisted DDQN and PPO averaged 25.41 and 25.24 of 26 matched objects, versus 19.35 for unassisted Random; their full-discovery counts were 11, 9, and 1. Mean successful completion times were approximately 3.02, 3.05, and 6.94 minutes. Because assistance supplied nearly all realized DDQN/PPO actions, the evidence establishes performance of the complete evaluated configurations in one simulated world rather than a causal ranking of the policies. Equal-assistance ablations and independent match validation are the next essential tests.
+
+\begin{thebibliography}{99}
+\bibitem{yamauchi1997} B. Yamauchi, ``A frontier-based approach for autonomous exploration,'' in \emph{Proc. IEEE Int. Symp. Computational Intelligence in Robotics and Automation}, 1997, pp. 146--151.
+\bibitem{chaplot2020} D. S. Chaplot, D. Gandhi, S. Gupta, A. Gupta, and R. Salakhutdinov, ``Learning to explore using Active Neural SLAM,'' in \emph{Proc. Int. Conf. Learning Representations}, 2020. [Online]. Available: \url{https://arxiv.org/abs/2004.05155}
+\bibitem{mnih2015} V. Mnih \emph{et al.}, ``Human-level control through deep reinforcement learning,'' \emph{Nature}, vol. 518, pp. 529--533, 2015, doi: 10.1038/nature14236.
+\bibitem{vanhasselt2016} H. van Hasselt, A. Guez, and D. Silver, ``Deep reinforcement learning with Double Q-learning,'' in \emph{Proc. 30th AAAI Conf. Artificial Intelligence}, 2016, doi: 10.1609/aaai.v30i1.10295.
+\bibitem{schulman2017} J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov, ``Proximal policy optimization algorithms,'' arXiv:1707.06347, 2017. [Online]. Available: \url{https://arxiv.org/abs/1707.06347}
+\bibitem{raffin2021} A. Raffin, A. Hill, A. Gleave, A. Kanervisto, M. Ernestus, and N. Dormann, ``Stable-Baselines3: Reliable reinforcement learning implementations,'' \emph{J. Mach. Learn. Res.}, vol. 22, no. 268, pp. 1--8, 2021.
+\bibitem{redmon2016} J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, ``You only look once: Unified, real-time object detection,'' in \emph{Proc. IEEE Conf. Computer Vision and Pattern Recognition}, 2016, pp. 779--788, doi: 10.1109/CVPR.2016.91.
+\bibitem{ultralyticsmodels} Ultralytics, ``YOLO models documentation,'' [Online]. Available: \url{https://docs.ultralytics.com/models/}. Accessed: Nov. 23, 2026.
+\bibitem{macenski2022} S. Macenski, T. Foote, B. Gerkey, C. Lalancette, and W. Woodall, ``Robot Operating System 2: Design, architecture, and uses in the wild,'' \emph{Science Robotics}, vol. 7, no. 66, 2022, doi: 10.1126/scirobotics.abm6074.
+\bibitem{koenig2004} N. Koenig and A. Howard, ``Design and use paradigms for Gazebo, an open-source multi-robot simulator,'' in \emph{Proc. IEEE/RSJ Int. Conf. Intelligent Robots and Systems}, 2004, pp. 2149--2154, doi: 10.1109/IROS.2004.1389727.
+\bibitem{macenski2021slam} S. Macenski and I. Jambrecic, ``SLAM Toolbox: SLAM for the dynamic world,'' \emph{J. Open Source Softw.}, vol. 6, no. 61, p. 2783, 2021, doi: 10.21105/joss.02783.
+\bibitem{osrfmodels} Open Robotics, ``Gazebo model database,'' GitHub repository. [Online]. Available: \url{https://github.com/osrf/gazebo_models}. Local checkout: \texttt{8163eb4b5e7e21985c6591d1c0bfb56468c0093f}.
+\bibitem{projectrepo} G. R. Thatipamula, ``ROS\_PROJECT: Robot exploration source and final 26-object world,'' GitHub repository. [Online]. Available: \url{https://github.com/Granthik6/ROS_PROJECT/blob/main/src/robot_tasks/worlds/spaced_objects_reliable_26_v4.world}. Accessed: Nov. 23, 2026.
+\bibitem{wilson1927} E. B. Wilson, ``Probable inference, the law of succession, and statistical inference,'' \emph{J. Amer. Statist. Assoc.}, vol. 22, no. 158, pp. 209--212, 1927, doi: 10.1080/01621459.1927.10502953.
+\end{thebibliography}
 
 \end{document}
