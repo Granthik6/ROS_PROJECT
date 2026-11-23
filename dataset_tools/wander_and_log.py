@@ -51,11 +51,6 @@ class WanderAndLog(Wander):
         self.yaw = math.atan2(siny_cosp, cosy_cosp)
 
     def step(self):
-        # some object rows sit closer to the wall than the robot's own
-        # footprint (a real world-layout gap, not something driving can
-        # solve) -- if we're wedged that close to a boundary, override the
-        # normal state machine and just head straight back toward the room
-        # center instead of trying to turn/back out of a box with no slack
         if self.last_pos is not None:
             x, y = self.last_pos
             margin = 0.45
@@ -78,9 +73,6 @@ class WanderAndLog(Wander):
         super().step()
 
     def object_clearance(self, center_deg, width_deg):
-        # the 2D lidar sits above small floor objects (cans, cups, tools),
-        # so it can't see them; fall back to the known object map to avoid
-        # silently driving into/over them and getting wedged
         if self.last_pos is None:
             return 10.0
         x, y = self.last_pos
@@ -108,8 +100,6 @@ class WanderAndLog(Wander):
         return min(lidar, obj)
 
     def enter_backup(self):
-        # never blindly back into something behind us — that's how a light
-        # robot gets rammed hard enough to tip over
         rear = self.clearance(180, 40)
         if rear < 0.3:
             self.enter_turn(hard=True)
@@ -119,9 +109,6 @@ class WanderAndLog(Wander):
         self.state_until = time.time() + backup_time
 
     def enter_turn(self, hard=False):
-        # bias toward the more open side instead of a random coin flip,
-        # and escalate rotation duration with repeated stuck cycles so a
-        # symmetric corner doesn't cause endless back-and-forth flip-flopping
         self.state = 'turn'
         left = self.clearance(90, 45)
         right = self.clearance(-90, 45)

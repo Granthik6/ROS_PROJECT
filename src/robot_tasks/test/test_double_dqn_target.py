@@ -15,6 +15,4 @@ def test_online_network_selects_and_target_network_evaluates():
         online_q, target_q, rewards, dones, discounts=0.9
     )
 
-    # The first online choice is action 0, worth 2 in the target network.
-    # The second transition is terminal, so it cannot bootstrap.
     torch.testing.assert_close(targets, torch.tensor([[2.8], [2.0]]))

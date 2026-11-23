@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# Usage: run_policy_only_trial.sh ddqn|ppo|random model.zip|- run_id seed minutes [stochastic]
-# Set ROBOT_TASKS_TRIAL_PROFILE=autonomous_coverage for LiDAR/SLAM map coverage
-# assistance without known object viewpoints.
 workspace=/root/ros2_ws
 algorithm=${1:-}
 model=${2:-}
@@ -130,8 +127,6 @@ print(math.ceil(float(sys.argv[1]) * 60 + 180))
 PY
 )
 launcher=(timeout --signal=INT --kill-after=15s "${wall_timeout_s}s")
-# The evaluator treats max_minutes=0 as unlimited. Do not end that run after
-# the fixed startup allowance; it must stop only on 36/36 or an operator signal.
 if [[ "$minutes" == 0 || "$minutes" == 0.0 ]]; then
   launcher=()
 fi

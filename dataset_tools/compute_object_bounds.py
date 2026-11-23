@@ -2,7 +2,6 @@ import os
 import trimesh
 import numpy as np
 
-# (model_dir, mesh_rel_path, visual_pose_xyz, class_name, unit_meter_scale)
 OBJECTS = [
     ("plastic_cup", "meshes/plastic_cup.dae", (0, 0, 0.065), "cup", 1.0),
     ("coke_can", "meshes/coke_can.dae", (0.003937, 0.0047244, -0.18), "coke_can", 0.001),
@@ -24,12 +23,11 @@ for model_dir, mesh_rel, pose_xyz, class_name, unit_scale in OBJECTS:
     else:
         mesh = scene_or_mesh
 
-    bounds = mesh.bounds * unit_scale  # (2,3) min/max in meters, mesh local frame
+    bounds = mesh.bounds * unit_scale
 
     size = bounds[1] - bounds[0]
     center_local = (bounds[0] + bounds[1]) / 2.0
 
-    # apply visual pose translation to get position relative to model/link origin
     center_model = center_local + np.array(pose_xyz)
 
     half = size / 2.0

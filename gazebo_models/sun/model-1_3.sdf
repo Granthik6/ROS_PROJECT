@@ -1,5 +1,4 @@
 <sdf version='1.3'>
-  <!-- Light Source -->
   <light type="directional" name="sun">
     <cast_shadows>true</cast_shadows>
 

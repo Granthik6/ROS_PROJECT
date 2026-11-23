@@ -54,9 +54,6 @@ for filename, remove in variants.items():
     tree.write(target, encoding='utf-8', xml_declaration=True)
     print(target)
 
-# Keep the 30-target set and the empty stands, while giving four difficult
-# targets clear, separated views. These coordinates are only in the world;
-# neither the policy nor coverage assist receives them for navigation.
 tree = ET.parse(ROOT / 'spaced_objects_accessible_30_stands.world')
 world = tree.getroot().find('world')
 world.set('name', 'spaced_objects_accessible_30_open')

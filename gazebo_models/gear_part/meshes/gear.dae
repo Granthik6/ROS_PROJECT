@@ -140,7 +140,6 @@
   </library_lights>
   <library_images>
     <image id="TrayParts_png">
-      <!--<init_from>trayParts.png</init_from>-->
     </image>
   </library_images>
   <library_visual_scenes>

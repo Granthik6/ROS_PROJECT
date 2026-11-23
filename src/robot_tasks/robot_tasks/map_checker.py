@@ -8,10 +8,6 @@ class MapChecker(Node):
     def __init__(self):
         super().__init__('map_checker')
 
-        # map_server / slam_toolbox publish /map as TRANSIENT_LOCAL so late
-        # subscribers still get the latest map even if it isn't republished
-        # again for a while; a default-QoS (VOLATILE) subscriber can miss it
-        # entirely whenever the robot is idle.
         map_qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             durability=DurabilityPolicy.TRANSIENT_LOCAL,

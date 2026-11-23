@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Uniform random forward/left/right exploration in the fixed 26-object world.
-# Usage: bash scripts/run_all26_random.sh [max_minutes] [run_id] [seed]
 workspace=/root/ros2_ws
 max_minutes=${1:-12}
 run_id=${2:-random_26_demo_$(date +%Y%m%d_%H%M%S)}
@@ -17,8 +15,6 @@ export ROBOT_TASKS_CONFIRM_NEW_DETECTIONS=false
 export ROBOT_TASKS_ROS_DOMAIN_ID=${ROBOT_TASKS_ROS_DOMAIN_ID:-173}
 export ROBOT_TASKS_GAZEBO_MASTER_URI=${ROBOT_TASKS_GAZEBO_MASTER_URI:-http://127.0.0.1:11773}
 
-# policy_only selects uniform random actions, with no global coverage planner,
-# inspection sweeps, breadcrumb return, or safety action overrides.
 bash "$workspace/scripts/run_policy_only_trial.sh" random - \
   "$run_id" "$seed" "$max_minutes" false
 

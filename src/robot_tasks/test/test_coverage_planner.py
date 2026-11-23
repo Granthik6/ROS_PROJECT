@@ -100,7 +100,7 @@ def test_distant_mode_selects_a_remote_reachable_frontier():
 def test_open_area_recovery_selects_remote_free_tile_beyond_local_frontier():
     grid = np.full((21, 21), 100, dtype=np.int16)
     grid[8:13, 2:19] = 0
-    grid[8:13, 1] = -1  # A frontier close to the start.
+    grid[8:13, 1] = -1
     origin = (0.0, 0.0, 0.0)
     start = cell_to_world(10, 5, 0.2, origin)
     local = plan_frontier(
@@ -217,7 +217,6 @@ def test_frontier_prefers_a_less_visited_region():
     grid[5:20, 5:20] = 0
     origin = (0.0, 0.0, 0.0)
     start = cell_to_world(12, 12, 0.2, origin)
-    # The right edge is nearby but crowded; the left edge is unseen.
     visited = {(tx, ty) for tx in range(4, 11) for ty in range(1, 9)}
     path = plan_frontier(
         grid.ravel(), 25, 25, 0.2, origin, start,
@@ -270,7 +269,6 @@ def test_planner_keeps_goals_inside_search_walls():
 
 def test_planner_transforms_map_points_before_world_wall_check():
     grid = np.zeros((20, 20), dtype=np.int16)
-    # The map is displaced two metres left of world-aligned odometry.
     map_to_world = (2.0, 0.0, 0.0)
     bounds = (0.0, 10.0, 0.0, 10.0)
     path = plan_frontier(

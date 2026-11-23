@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Usage: bash scripts/run_all26_ddqn.sh [max_minutes] [run_id] [seed]
-# max_minutes=0 waits for 26/26 or Ctrl+C; the default bounds a demo run.
 workspace=/root/ros2_ws
 max_minutes=${1:-12}
 run_id=${2:-ddqn_26_demo_$(date +%Y%m%d_%H%M%S)}

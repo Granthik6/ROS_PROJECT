@@ -30,7 +30,7 @@ def main():
             by_class[class_id].append(label)
 
     selected = set()
-    for class_id in range(39):
+    for class_id in sorted(by_class):
         choices = by_class.get(class_id, [])
         selected.update(rng.sample(choices, min(20, len(choices))))
     selected.update(rng.sample(background, min(80, len(background))))

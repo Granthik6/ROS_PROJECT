@@ -9,7 +9,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from visualization_msgs.msg import Marker, MarkerArray
 
-ASSOCIATION_RADIUS_M = 1.2  # same class within this radius = same object
+ASSOCIATION_RADIUS_M = 1.2
 LOG_PATH = os.path.expanduser('~/ros2_ws/realistic_sim_detections.csv')
 
 CLASS_COLORS = {
@@ -26,7 +26,7 @@ class ObjectMapper(Node):
     def __init__(self):
         super().__init__('object_mapper')
 
-        self.objects = []  # list of dicts: class, x, y, z, first_seen, last_seen, confidence(best), n_obs
+        self.objects = []
 
         self.subscription = self.create_subscription(
             String, '/yolo/detections', self.detection_callback, 20
@@ -56,9 +56,6 @@ class ObjectMapper(Node):
         except Exception:
             return
 
-        # prefer odom (reliable in this sim; see camera_link_pose_bugfix /
-        # project memory) over map, since AMCL's map->odom correction is
-        # not always trustworthy without a well-converged localization run
         map_xyz = det.get('odom_xyz') or det.get('map_xyz')
         if map_xyz is None:
             return
@@ -91,7 +88,6 @@ class ObjectMapper(Node):
                 f'({x:.2f}, {y:.2f}, {z:.2f}) conf={conf:.2f}'
             )
         else:
-            # running-average position update, keep best confidence
             n = match['n_obs']
             match['x'] = (match['x'] * n + x) / (n + 1)
             match['y'] = (match['y'] * n + y) / (n + 1)

@@ -7,7 +7,7 @@ sys.path.insert(0, "/root/ros2_ws/dataset_tools")
 from compute_furniture_bounds import combined_bounds_from_sdf, GAZEBO_MODELS
 
 WORLD = "/root/ros2_ws/src/robot_tasks/worlds/realistic_room.world"
-TOLERANCE = 0.02  # 2cm - below this we don't care
+TOLERANCE = 0.02
 
 world_text = open(WORLD).read()
 

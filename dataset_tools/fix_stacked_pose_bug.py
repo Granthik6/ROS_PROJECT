@@ -29,17 +29,15 @@ for entity, model_dir in AFFECTED.items():
 
     bounds = combined_bounds_from_sdf(sdf_path, model_dir)
     bmin, bmax = bounds
-    true_bottom = bmin[2] + model_root_z  # mesh bottom in the model's own frame, plus its baked-in root pose
+    true_bottom = bmin[2] + model_root_z
     true_top = bmax[2] + model_root_z
 
-    # current world pose
     m = re.search(
         rf'<name>{re.escape(entity)}</name>\s*<pose>([^<]+)</pose>', world_text
     )
     cur_pose = m.group(1).split()
     cur_world_z = float(cur_pose[2])
 
-    # to make the true bottom sit at world z=0: world_z = -true_bottom
     new_world_z = round(-true_bottom, 4)
 
     print(f"{entity:35s} model_root_z={model_root_z:7.4f} mesh_bottom(local)={bmin[2]:8.4f} "

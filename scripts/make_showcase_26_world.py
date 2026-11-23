@@ -56,8 +56,6 @@ ET.indent(tree, space='  ')
 tree.write(target, encoding='utf-8', xml_declaration=True)
 print(target)
 
-# Put small props where the camera can inspect them from the open western
-# aisle. Preserve the rest of the two-ring layout, including both PCD props.
 variant = root / 'spaced_objects_showcase_26_v2.world'
 tree = ET.parse(target)
 world = tree.getroot().find('world')

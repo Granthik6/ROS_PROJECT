@@ -42,9 +42,9 @@ def test_wall_escape_rejects_clear_direction_away_from_room_center():
     for index in range(360):
         angle = -math.pi + index * 2 * math.pi / 360
         if abs(angle + 1.55) < 0.23:
-            ranges.append(3.0)  # Clear south, toward the wall.
+            ranges.append(3.0)
         elif abs(angle - 1.55) < 0.23:
-            ranges.append(1.1)  # Narrower but clear north, into the room.
+            ranges.append(1.1)
         else:
             ranges.append(0.3)
     scan = SimpleNamespace(
@@ -83,8 +83,6 @@ def test_wall_escape_allows_lateral_route_around_obstacle():
     assist.escape_events = 0
     assist.path = []
     assist.goal = None
-    # Robot faces east at the east wall. West (pi) is the room interior,
-    # but an obstacle blocks it. North (pi/2) is clear and should be usable.
     assert assist._begin_escape(
         (8.7, -0.6, 0.0), scan, set(), 10.0,
         preferred_heading=math.pi,
@@ -100,7 +98,7 @@ def test_boundary_recovery_clears_escape_heading_away_from_center():
     assist.last_new_cell_time = 0.0
     assist.path = []
     assist.goal = None
-    assist.escape_heading = 0.0  # South in a map rotated 90 degrees.
+    assist.escape_heading = 0.0
     assist.escape_origin = (0.0, 0.0)
     assist.intervention_steps = 0
     assist.returning_inside_bounds = False
@@ -133,8 +131,6 @@ def test_boundary_recovery_returns_toward_arena_interior():
     assert (action, source) == (0, 'global_coverage')
     assert assist.last_status == 'returning_inside_bounds'
     assert assist.goal is None
-    # Crossing just inside the trigger must not release control back to a
-    # frontier that immediately drives the robot out again.
     action, source = assist.action(
         (-1.0, -9.7, math.pi / 2), set(), 2, 2.0, now=6.0)
     assert (action, source) == (0, 'global_coverage')
@@ -165,15 +161,11 @@ def test_boundary_recovery_uses_world_aligned_odometry_when_slam_drifts():
     assist.last_detector_time = 100.0
     assist._map_pose = lambda _odom: (0.0, 4.0, -math.pi / 2)
 
-    # In this Gazebo setup odometry is aligned with the world, while the
-    # SLAM map can drift. The world wall limits must use odometry.
     action, source = assist.action(
         (0.0, 6.5, -math.pi / 2), set(), 2, 2.0, now=100.0)
     assert (action, source) == (0, 'global_coverage')
     assert assist.returning_inside_bounds
 
-    # A drifting map pose outside the wall must not keep recovery active
-    # after odometry has returned to the room interior.
     assist._map_pose = lambda _odom: (0.0, 6.5, -math.pi / 2)
     assist._plan = lambda *_args: False
     action, source = assist.action(

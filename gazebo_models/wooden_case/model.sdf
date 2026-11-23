@@ -27,9 +27,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -72,9 +69,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -117,9 +111,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -162,9 +153,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -207,9 +195,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -252,9 +237,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -297,9 +279,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>
@@ -357,9 +336,6 @@
         </geometry>
         <surface>
           <contact>
-            <!-- Red Pine coefficients for longitudinal axis of the wood
-                 according to:
-                 http://www.fpl.fs.fed.us/documnts/fplgtr/fplgtr113/ch04.pdf -->
             <poissons_ratio>0.347</poissons_ratio>
             <elastic_modulus>8.8e+09</elastic_modulus>
             <ode>

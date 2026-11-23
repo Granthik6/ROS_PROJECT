@@ -17,7 +17,6 @@ def main():
     time.sleep(0.5)
     node.wait_fresh_frame()
 
-    # drain a bit more so the depth callback catches up with the new pose
     start = time.time()
     while time.time() - start < 1.5:
         rclpy.spin_once(node, timeout_sec=0.05)

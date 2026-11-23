@@ -8,8 +8,7 @@ that class at each distance. Reports, per class:
   - the confidence achieved at each tested distance
 
 Requires the simulation (gzserver/gzclient) and yolo_node to already be
-running (see recheck_misses.py / final_verify_all_39.py for the launch
-pattern this project uses).
+running.
 """
 import csv
 import json
@@ -25,11 +24,10 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-# distances to test, in meters
 DISTANCES = [0.4, 0.6, 0.8, 1.0, 1.2, 1.5, 1.8, 2.1, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
 CONF_THRESHOLD = 0.15
 SETTLE_TIME = 1.3
-ANGLE_OFFSETS_DEG = [-10, 10]  # a couple of small angle variations per distance
+ANGLE_OFFSETS_DEG = [-10, 10]
 OUT_CSV = "/root/ros2_ws/detection_range_results.csv"
 
 

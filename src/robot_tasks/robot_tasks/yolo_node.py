@@ -106,9 +106,6 @@ class YoloNode(Node):
         self.get_logger().info(
             f'Loaded YOLO model: {model_path}'
         )
-        self.get_logger().info(
-            f'Classes: {self.model.names}'
-        )
         if self.person_model is not None:
             self.get_logger().info(
                 f'Using COCO person detector every '
@@ -173,17 +170,12 @@ class YoloNode(Node):
             10
         )
 
-        # One Float32 message is published for every detection.  This is the
-        # small, stable interface intended for an RL observation subscriber.
         self.confidence_publisher = self.create_publisher(
             Float32,
             '/yolo/confidence',
             10
         )
 
-        # Distance is only published when a valid depth sample is available.
-        # Consumers that need confidence and distance atomically should use
-        # /yolo/detections, which contains both values in one JSON message.
         self.distance_publisher = self.create_publisher(
             Float32,
             '/yolo/distance',
@@ -329,9 +321,6 @@ class YoloNode(Node):
         if len(points) < 3:
             return None
 
-        # An open object such as a table can have mostly distant background
-        # inside its bounding box. Use the nearest third of valid samples so
-        # its legs or tabletop determine the 3D location.
         nearest = sorted(points, key=lambda point: point[2])[
             :max(3, len(points) // 3)
         ]
@@ -388,8 +377,6 @@ class YoloNode(Node):
                     timeout=rclpy.duration.Duration(seconds=0.1),
                 )
             except Exception:
-                # Some simulated depth stamps arrive ahead of the TF cache.
-                # Keep a mapped detection using the newest available pose.
                 transform = self.tf_buffer.lookup_transform(
                     target_frame,
                     source_frame,
@@ -429,13 +416,8 @@ class YoloNode(Node):
         current_s = current_stamp.sec + current_stamp.nanosec * 1e-9
         if (self.max_image_age_s and image_stamp_s > 0 and current_s > 0 and
                 current_s - image_stamp_s > self.max_image_age_s):
-            # Inference can fall behind a 30 Hz simulated camera. Discard
-            # queued frames after teleports or motion instead of reporting
-            # old images with a new timestamp.
             return
 
-        # Inference blocks this single-threaded executor. Synchronizing first
-        # prevents a queued RGB image from using an old or absent depth cloud.
         self.active_pointcloud = pointcloud
 
         try:
@@ -506,8 +488,6 @@ class YoloNode(Node):
             if result.boxes is not None:
                 for box in result.boxes:
                     class_name = self.model.names[int(box.cls[0].item())]
-                    # Use one detector for this class to avoid duplicate
-                    # person observations at the same location.
                     if class_name != 'person' or not run_person_fallback:
                         if class_name != 'fire_hose_long' or self.hose_model is None:
                             boxes.append((box, class_name))

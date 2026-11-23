@@ -30,9 +30,6 @@ ET.indent(tree, space='  ')
 tree.write(target, encoding='utf-8', xml_declaration=True)
 print(target)
 
-# A second fixed variant moves the two remaining hard-to-view targets into
-# free gaps near the central aisle. No object positions are supplied to the
-# navigation controller at run time.
 variant = worlds / 'spaced_objects_accessible_26_v2.world'
 tree = ET.parse(target)
 world = tree.getroot().find('world')
@@ -51,9 +48,6 @@ ET.indent(tree, space='  ')
 tree.write(variant, encoding='utf-8', xml_declaration=True)
 print(variant)
 
-# The first v2 trial reached the eastern aisle but missed the table and
-# postbox on the west side. Place those two at separated positions visible
-# from that aisle in a third fixed variant.
 third = worlds / 'spaced_objects_accessible_26_v3.world'
 tree = ET.parse(variant)
 world = tree.getroot().find('world')

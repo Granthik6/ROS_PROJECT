@@ -100,8 +100,6 @@ def plan_frontier(
             if not _inside_search_bounds(
                     x, y, search_bounds, wall_margin_m, bounds_transform):
                 free[rr, cc] = False
-    # A failed intermediate Nav2 waypoint can lie on many otherwise valid
-    # frontier routes. Exclude it from path search, not merely from goals.
     if avoid_tiles:
         avoid_tiles = set(avoid_tiles)
         for rr, cc in np.argwhere(free):
@@ -113,7 +111,6 @@ def plan_frontier(
     if not (0 <= row < height and 0 <= col < width):
         return []
     if not free[row, col]:
-        # The robot footprint can straddle occupied or unknown map pixels.
         options = []
         for dy in range(-6, 7):
             for dx in range(-6, 7):
@@ -157,7 +154,6 @@ def plan_frontier(
         if free[rr, cc]:
             x, y = cell_to_world(rr, cc, resolution, origin)
             tile = (math.floor(x / tile_size), math.floor(y / tile_size))
-            # Avoid repeatedly selecting a goal underneath the robot.
             if math.hypot(x - robot_xy[0], y - robot_xy[1]) >= min_goal_distance_m:
                 if prefer_open_area and (frontiers[rr, cc] or
                                          tile not in visited_tiles):
@@ -241,8 +237,6 @@ def plan_sensor_probe(
     visited_tiles = set(visited_tiles)
     goal_penalties = goal_penalties or {}
     x, y, yaw = robot_pose
-    # Look far enough to distinguish a large unmapped room from a small
-    # unmapped pocket beside an already explored corridor.
     gain_radius_cells = max(1, math.ceil(2.0 / resolution))
     unknown_integral = np.pad(
         (grid < 0).astype(np.int32), ((1, 0), (1, 0))

@@ -14,8 +14,6 @@ def main():
 
     random.seed(2024)
 
-    # extra weight on hammer (weakest test mAP) and bowl/coke_can (also
-    # weaker than cup/cordless_drill), plus a modest background top-up
     weights = {
         "cup": 8,
         "bowl": 12,

@@ -82,12 +82,10 @@ class Wander(Node):
         front = self.front_clearance()
         left, right = self.side_clearance()
 
-        # hard safety override: too close in front regardless of state
         if front < 0.28 and self.state != 'backup':
             self.get_logger().warn(f'Too close (front={front:.2f}m) — backing up')
             self.enter_backup()
 
-        # stuck detection: check every 4s whether we've actually moved
         if now - self.stuck_check_time > 4.0:
             if self.last_pos is not None and self.stuck_check_pos is not None:
                 moved = math.hypot(
@@ -118,11 +116,10 @@ class Wander(Node):
             if now > self.state_until:
                 self.state = 'forward'
 
-        else:  # forward
+        else:
             if front < 0.55:
                 self.enter_turn()
             elif left < 0.3 or right < 0.3:
-                # too close to a side wall even though front is clear
                 self.turn_dir = 1.0 if left < right else -1.0
                 self.state = 'turn'
                 self.state_until = now + random.uniform(0.8, 1.4)

@@ -31,7 +31,7 @@ for model_dir, entity in TARGETS.items():
     size = bmax - bmin
     half = size / 2.0
     offset_xy = (bmin[:2] + bmax[:2]) / 2.0
-    offset_z = half[2]  # bottom now sits at 0 after the world-file fix
+    offset_z = half[2]
 
     print(f"{entity:32s} half=({half[0]:.4f}, {half[1]:.4f}, {half[2]:.4f})  "
           f"offset=({offset_xy[0]:.4f}, {offset_xy[1]:.4f}, {offset_z:.4f})")

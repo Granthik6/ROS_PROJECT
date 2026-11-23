@@ -6,8 +6,6 @@ from compute_furniture_bounds import combined_bounds_from_sdf, GAZEBO_MODELS
 
 TARGETS = ["stop_sign", "table_marble"]
 
-# extra z the model.sdf itself bakes in at the <model><pose> level, which
-# combined_bounds_from_sdf (walking only collision/visual poses) does not see
 MODEL_ROOT_Z = {
     "stop_sign": 0.0,
     "table_marble": 0.648,

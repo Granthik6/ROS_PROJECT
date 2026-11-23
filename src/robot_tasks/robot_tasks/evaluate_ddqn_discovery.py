@@ -197,9 +197,6 @@ class SafetyRecoveryMixin:
                     self.safety_interventions += 1
                     return
         front = self._front_clearance()
-        # In the three-action search profile, actions 1 and 2 are in-place
-        # turns. They remain safe with a close obstacle in front and must not
-        # be replaced by an unrelated turn chosen from noisy side ranges.
         if (isinstance(self, CoverageSearchExplorationEnv) and
                 int(action) in (1, 2)):
             return super()._publish_action(action)
@@ -602,8 +599,6 @@ def choose_random_action(env, observation, rng, policy):
             left *= max(0.05, min(2.0, env._side_clearance(math.pi / 2)))
             right *= max(0.05, min(2.0, env._side_clearance(-math.pi / 2)))
         return rng.choices((1, 2), weights=(left, right))[0]
-    # Persist forward motion while the path is clear. Rare random turns are
-    # weighted toward unseen cells, avoiding a turn-only loop near props.
     if rng.random() < (0.94 if novelty[0] >= 0.5 else 0.78):
         return 0
     return rng.choices((1, 2), weights=(left, right))[0]
@@ -670,8 +665,6 @@ class DetectionConfirmation:
             ]
             if fresh:
                 self.attempted.update(cluster['id'] for cluster in fresh)
-                # Six small left/right pairs return to the same heading and
-                # give the camera several chances to observe the candidate.
                 self.remaining = [2, 1] * 6
                 self.events += 1
         if self.remaining:
@@ -814,8 +807,6 @@ def main():
                     detector_count=sum(obj['confirmed'] for obj in env.objects),
                     detector_classes={obj['class'] for obj in env.objects
                                       if obj['confirmed']})
-            # A camera sweep may take several seconds. Finish a LiDAR escape
-            # first so the recovery can actually leave the blocked area.
             confirming = False
             if (coverage_assist is not None and
                     coverage_assist.last_status in (

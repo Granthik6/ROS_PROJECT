@@ -57,14 +57,9 @@ def world_specs(path):
         spec = dict(template)
         spec['pos'] = (instance['x'], instance['y'])
         spec['yaw'] = poses[instance['name']][5]
-        # Template geometry is relative to the model origin. Some worlds
-        # raise models above the floor, so include that height in projection.
         ox, oy, oz = spec['offset']
         spec['offset'] = (ox, oy, oz + poses[instance['name']][2])
         if instance['class'] == 'ball_bearing':
-            # The Gazebo sphere radius is 3 mm, not the 3 cm used by the
-            # older approximate template. Its display stand permits closer
-            # camera views that keep the tiny sphere in frame.
             spec['half'] = (0.003, 0.003, 0.003)
             spec['offset'] = (0.0, 0.0, 0.003 + poses[instance['name']][2])
             spec['distances'] = [0.30, 0.40, 0.55, 0.75]
@@ -112,9 +107,6 @@ def candidate_views(spec, attempts):
         area = width * height / (gyd.IMG_W * gyd.IMG_H)
         clipped = (x1 <= 5 or y1 <= 5 or
                    x2 >= gyd.IMG_W - 6 or y2 >= gyd.IMG_H - 6)
-        # A close view that cuts off the furniture is a poor detector test.
-        # Prefer an object occupying up to about 15% of the frame; for tiny
-        # objects, this still chooses the largest available image.
         score = (area - 3.0 * max(0.0, area - 0.15) -
                  0.15 * center_penalty - 0.30 * clipped)
         angle = math.atan2(y - spec['pos'][1], x - spec['pos'][0])
@@ -132,8 +124,6 @@ def candidate_views(spec, attempts):
         return []
     selected = [scored.pop(0)]
     if attempts > 1:
-        # A close, complete view often works when a distant view has too few
-        # pixels. Keep one of each rather than three nearly identical ranges.
         complete = [item for item in scored if
                     not item['clipped'] and item['area'] <= 0.35]
         pool = complete or scored

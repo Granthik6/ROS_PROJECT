@@ -30,11 +30,9 @@ class NavigateGoal(Node):
         goal.pose.header.frame_id = 'map'
         goal.pose.header.stamp = self.get_clock().now().to_msg()
 
-        # Goal position
         goal.pose.pose.position.x = 1.0
         goal.pose.pose.position.y = 1.0
 
-        # Goal orientation
         goal.pose.pose.orientation.x = 0.0
         goal.pose.pose.orientation.y = 0.0
         goal.pose.pose.orientation.z = 0.948

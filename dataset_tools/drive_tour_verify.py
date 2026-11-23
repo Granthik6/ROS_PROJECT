@@ -42,7 +42,7 @@ def wrap(a):
 class DriveTour(Node):
     def __init__(self):
         super().__init__("drive_tour_verify")
-        self.pose = None  # (x, y, yaw)
+        self.pose = None
         self.scan = None
         self.best_conf = {}
 
@@ -116,8 +116,6 @@ class DriveTour(Node):
                 stuck_anchor = (x, y)
                 stuck_anchor_t = now
             elif now - stuck_anchor_t > STUCK_WINDOW and now >= recovering_until:
-                # hasn't made progress in a while: back up and turn away,
-                # like a teleop driver un-wedging from clutter
                 recovering_until = now + 2.5
                 recovery_turn_dir = 1.0 if self.clearance(90, 40) > self.clearance(-90, 40) else -1.0
                 stuck_anchor = (x, y)
@@ -132,8 +130,6 @@ class DriveTour(Node):
                 cmd.linear.x = -0.15
                 cmd.angular.z = 0.6 * recovery_turn_dir
             elif front < 0.4:
-                # obstacle ahead: turn toward the more open side, like a
-                # teleop driver steering around it, don't push through
                 cmd.linear.x = 0.0
                 cmd.angular.z = 0.6 if left > right else -0.6
             else:
@@ -173,7 +169,6 @@ class DriveTour(Node):
 
 
 def approach_point(ox, oy, dist):
-    # pick the direction that lands on free space, sweeping around the object
     for k in range(24):
         theta = 2 * math.pi * k / 24
         rx = ox + dist * math.cos(theta)

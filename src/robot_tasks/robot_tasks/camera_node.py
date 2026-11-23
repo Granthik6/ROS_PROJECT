@@ -18,9 +18,6 @@ class CameraNode(Node):
 
         self.bridge = CvBridge()
 
-        # -----------------------------------------------------
-        # RGB IMAGE
-        # -----------------------------------------------------
 
         self.rgb_subscription = self.create_subscription(
             Image,
@@ -29,9 +26,6 @@ class CameraNode(Node):
             10
         )
 
-        # -----------------------------------------------------
-        # DEPTH IMAGE
-        # -----------------------------------------------------
 
         self.depth_subscription = self.create_subscription(
             Image,
@@ -57,9 +51,6 @@ class CameraNode(Node):
         )
 
 
-    # =========================================================
-    # RGB CALLBACK
-    # =========================================================
 
     def rgb_callback(self, msg):
 
@@ -79,9 +70,6 @@ class CameraNode(Node):
             )
 
 
-    # =========================================================
-    # DEPTH CALLBACK
-    # =========================================================
 
     def depth_callback(self, msg):
 
@@ -103,15 +91,9 @@ class CameraNode(Node):
             )
 
 
-    # =========================================================
-    # DISPLAY
-    # =========================================================
 
     def display_images(self):
 
-        # -----------------------------------------------------
-        # RGB
-        # -----------------------------------------------------
 
         if self.rgb_frame is not None:
 
@@ -123,15 +105,11 @@ class CameraNode(Node):
             )
 
 
-        # -----------------------------------------------------
-        # DEPTH
-        # -----------------------------------------------------
 
         if self.depth_frame is not None:
 
             depth = self.depth_frame.copy()
 
-            # Remove invalid values
             valid = np.isfinite(depth)
 
             if np.any(valid):
@@ -174,7 +152,6 @@ class CameraNode(Node):
                 )
 
 
-            # Apply a color map for easier visualization
             depth_display = cv2.applyColorMap(
                 depth_display,
                 cv2.COLORMAP_JET
@@ -189,9 +166,6 @@ class CameraNode(Node):
         cv2.waitKey(1)
 
 
-    # =========================================================
-    # CLEAN SHUTDOWN
-    # =========================================================
 
     def destroy_node(self):
 

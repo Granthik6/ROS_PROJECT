@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run paired Gazebo trials. The first argument is a new experiment ID.
-# Usage: bash scripts/run_real_17_trial_comparison.sh EXPERIMENT_ID [minutes_per_trial] [first_seed] [number_of_seeds] [policy_only|autonomous_coverage]
-# Set minutes_per_trial=0 to run each trial until all 36 objects are confirmed.
 
 workspace=/root/ros2_ws
 experiment_id=${1:-}

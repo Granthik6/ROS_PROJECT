@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run 17 independent uniform-random exploration trials, seeds 42..58.
-# Usage: bash scripts/run_random_26_17_trials.sh [max_minutes] [series_id]
 workspace=/root/ros2_ws
 max_minutes=${1:-12}
 series_id=${2:-random_26_17_20261122}

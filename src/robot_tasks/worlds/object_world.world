@@ -3,26 +3,17 @@
 
   <world name="object_world">
 
-    <!-- ========================= -->
-    <!-- LIGHTING                   -->
-    <!-- ========================= -->
 
     <include>
       <uri>model://sun</uri>
     </include>
 
-    <!-- ========================= -->
-    <!-- FLOOR                      -->
-    <!-- ========================= -->
 
     <include>
       <uri>model://ground_plane</uri>
     </include>
 
 
-    <!-- ========================= -->
-    <!-- WALL 1                     -->
-    <!-- ========================= -->
 
     <model name="wall_1">
       <static>true</static>
@@ -50,9 +41,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- WALL 2                     -->
-    <!-- ========================= -->
 
     <model name="wall_2">
       <static>true</static>
@@ -80,9 +68,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- WALL 3                     -->
-    <!-- ========================= -->
 
     <model name="wall_3">
       <static>true</static>
@@ -110,9 +95,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- WALL 4                     -->
-    <!-- ========================= -->
 
     <model name="wall_4">
       <static>true</static>
@@ -140,9 +122,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- RED BOX                    -->
-    <!-- ========================= -->
 
     <model name="red_box">
       <static>true</static>
@@ -176,9 +155,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- BLUE CYLINDER              -->
-    <!-- ========================= -->
 
     <model name="blue_cylinder">
       <static>true</static>
@@ -214,9 +190,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- GREEN SPHERE               -->
-    <!-- ========================= -->
 
     <model name="green_sphere">
       <static>true</static>
@@ -250,9 +223,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- SIMPLE TABLE               -->
-    <!-- ========================= -->
 
     <model name="table">
       <static>true</static>
@@ -260,7 +230,6 @@
 
       <link name="link">
 
-        <!-- tabletop -->
         <visual name="top_visual">
           <pose>0 0 0.9 0 0 0</pose>
           <geometry>
@@ -279,7 +248,6 @@
           </geometry>
         </collision>
 
-        <!-- leg 1 -->
         <visual name="leg1_visual">
           <pose>0.8 0.4 0.45 0 0 0</pose>
           <geometry>
@@ -289,7 +257,6 @@
           </geometry>
         </visual>
 
-        <!-- leg 2 -->
         <visual name="leg2_visual">
           <pose>-0.8 0.4 0.45 0 0 0</pose>
           <geometry>
@@ -299,7 +266,6 @@
           </geometry>
         </visual>
 
-        <!-- leg 3 -->
         <visual name="leg3_visual">
           <pose>0.8 -0.4 0.45 0 0 0</pose>
           <geometry>
@@ -309,7 +275,6 @@
           </geometry>
         </visual>
 
-        <!-- leg 4 -->
         <visual name="leg4_visual">
           <pose>-0.8 -0.4 0.45 0 0 0</pose>
           <geometry>
@@ -323,9 +288,6 @@
     </model>
 
 
-    <!-- ========================= -->
-    <!-- SIMPLE CHAIR               -->
-    <!-- ========================= -->
 
     <model name="chair">
       <static>true</static>
@@ -333,7 +295,6 @@
 
       <link name="link">
 
-        <!-- seat -->
         <visual name="seat">
           <pose>0 0 0.55 0 0 0</pose>
           <geometry>
@@ -343,7 +304,6 @@
           </geometry>
         </visual>
 
-        <!-- back -->
         <visual name="back">
           <pose>0 -0.42 1.1 0 0 0</pose>
           <geometry>
@@ -353,7 +313,6 @@
           </geometry>
         </visual>
 
-        <!-- front left leg -->
         <visual name="leg1">
           <pose>0.4 0.4 0.25 0 0 0</pose>
           <geometry>
@@ -363,7 +322,6 @@
           </geometry>
         </visual>
 
-        <!-- front right leg -->
         <visual name="leg2">
           <pose>-0.4 0.4 0.25 0 0 0</pose>
           <geometry>

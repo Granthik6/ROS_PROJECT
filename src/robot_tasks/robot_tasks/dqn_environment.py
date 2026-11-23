@@ -526,8 +526,6 @@ class CoverageExplorationEnv(RosExplorationEnv):
             self.collision,
             self.pending_object_rewards,
         )
-        # A collision is penalized, but the three-action policy must have
-        # another chance to steer away instead of ending the episode here.
         terminated = False
         if self.collision:
             self._stop()

@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# Nine paired, fixed-duration evaluations: DDQN, PPO, and uniform random
-# actions at seeds 42, 43, and 44. No guided poses, SLAM steering, camera
-# sweeps, or safety action overrides are enabled.
 workspace=/root/ros2_ws
 comparison_id=${1:-policy_only_3min_3seeds_$(date +%Y%m%d_%H%M%S)}
 duration_minutes=${2:-3}

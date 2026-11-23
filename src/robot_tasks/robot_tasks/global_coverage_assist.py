@@ -83,7 +83,6 @@ class GlobalCoverageAssist:
         dx = transform.transform.translation.x
         dy = transform.transform.translation.y
         cosine, sine = math.cos(angle), math.sin(angle)
-        # The occupancy grid is in map; the room limits are in odom/world.
         self.bounds_transform = (-cosine * dx - sine * dy,
                                  sine * dx - cosine * dy, -angle)
         self.odom_to_map_transform = (dx, dy, angle)
@@ -151,9 +150,6 @@ class GlobalCoverageAssist:
                     math.cos(map_pose[2] + angle - preferred_heading))
                 if (require_preferred_half_plane and
                         math.cos(difference) < -0.20):
-                    # A short lateral move along a wall may be the only way
-                    # around an obstacle before heading toward the interior.
-                    # Still reject directions substantially away from it.
                     continue
             x = map_pose[0] + math.cos(map_pose[2] + angle)
             y = map_pose[1] + math.sin(map_pose[2] + angle)
@@ -265,9 +261,6 @@ class GlobalCoverageAssist:
         yaw = math.atan2(2.0 * (q.w * q.z + q.x * q.y),
                          1.0 - 2.0 * (q.y * q.y + q.z * q.z))
         visited = self._map_visited_tiles(visited_cells)
-        # The occupancy grid already contains the physical walls. Keeping
-        # this optional lets a trial test whether the extra rectangular crop
-        # removes useful frontier routes when SLAM shifts.
         planner_bounds = (self.search_bounds
                           if self.planner_bounds_enabled else None)
         sector_center = None
@@ -464,8 +457,6 @@ class GlobalCoverageAssist:
             if not self._plan(map_pose, visited_cells, scan, now):
                 return proposed, 'policy'
 
-        # Follow the SLAM path with a short lookahead. The evaluator's shared
-        # safety layer can still override an unsafe forward command.
         while len(self.path) > 1 and math.hypot(
                 self.path[0][0] - map_pose[0],
                 self.path[0][1] - map_pose[1]) < 0.30:

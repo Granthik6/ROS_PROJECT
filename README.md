@@ -4,6 +4,8 @@ This repository contains the **final 26-object simulation** used to evaluate thr
 
 The final experiment consists of **17 saved trials per configuration (51 total)**, with seeds 42–58 and a 12-minute limit per trial. The archived trial records all use `src/robot_tasks/worlds/spaced_objects_reliable_26_v4.world`. The 26 scored instances include both `bottle_pcd_object` and `doll_pcd_object`; their full inventory is in `26_OBJECT_SHOWCASE.md` and `paper/main.tex`.
 
+The final world has exactly 26 scored object instances. The detector can recognize labels outside this target inventory, but those labels are not additional objects in the evaluated world.
+
 ## Results from the archived 51 trials
 
 | Metric | DDQN + assistance | PPO + assistance | Random |

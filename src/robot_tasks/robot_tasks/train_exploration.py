@@ -196,8 +196,6 @@ def main():
         save_freq=max(250, args.timesteps // 10),
         save_path=os.path.join(run_dir, 'checkpoints'),
         name_prefix=args.algorithm,
-        # The full replay buffer is saved with model_final below. Writing it
-        # at every checkpoint duplicates hundreds of megabytes per run.
         save_replay_buffer=False,
     )
     reward_callback = RewardCurveCallback(

@@ -7,7 +7,6 @@ import trimesh
 
 GAZEBO_MODELS = os.path.expanduser("~/gazebo_models")
 
-# model_dir -> (unit_scale for any mesh files found, default 1.0)
 TARGETS = {
     "bookshelf": 1.0,
     "cabinet": 1.0,
@@ -22,7 +21,7 @@ TARGETS = {
 def mesh_bounds(path):
     scene_or_mesh = trimesh.load(path, force='scene')
     mesh = scene_or_mesh.to_geometry() if isinstance(scene_or_mesh, trimesh.Scene) else scene_or_mesh
-    return mesh.bounds  # (2,3) min/max in mesh local frame
+    return mesh.bounds
 
 
 def get_unit_scale(dae_path):
@@ -78,7 +77,6 @@ def combined_bounds_from_sdf(sdf_path, model_dir):
             elif mesh is not None:
                 uri = mesh.find("uri").text
                 rel = uri.replace("model://", "")
-                # rel = "<model_name>/meshes/xxx.dae" - resolve relative to gazebo_models root
                 mesh_path = os.path.join(GAZEBO_MODELS, rel)
                 if not os.path.exists(mesh_path):
                     continue

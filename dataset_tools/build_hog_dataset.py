@@ -9,7 +9,7 @@ DEST = os.path.expanduser("~/ros2_ws/realistic_sim_hog_dataset")
 
 CLASS_NAMES = ["cup", "bowl", "coke_can", "cordless_drill", "hammer"]
 WINDOW = (128, 128)
-PAD_FRAC = 0.15  # a bit of context around the tight yolo box helps HOG
+PAD_FRAC = 0.15
 
 random.seed(3)
 
@@ -73,7 +73,6 @@ def main():
             )
             cv2.imwrite(out_path, resized)
 
-        # background crops: random windows that don't overlap any real box
         if not lines:
             n_bg = 2
         else:

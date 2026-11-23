@@ -6,8 +6,8 @@ import matplotlib
 
 matplotlib.use('Agg')
 
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 DEFAULT_INPUT = '/root/ros2_ws/results/distance_confidence.csv'

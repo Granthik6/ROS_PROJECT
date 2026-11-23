@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# Usage: run_guided_all36.sh ddqn|ppo|random [run_id] [stall_minutes] [gui]
-# The guided phase teleports the robot to audited camera views of missing
-# objects. Its detections are reported separately from the exploration phase.
 workspace=/root/ros2_ws
 algorithm=${1:-}
 if [[ "$algorithm" != ddqn && "$algorithm" != ppo && "$algorithm" != random ]]; then

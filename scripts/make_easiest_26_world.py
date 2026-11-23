@@ -8,7 +8,6 @@ import xml.etree.ElementTree as ET
 root = Path('/root/ros2_ws/src/robot_tasks/worlds')
 source = root / 'spaced_objects_accessible_v17.world'
 target = root / 'spaced_objects_easiest_26.world'
-# Lowest confirmed-run fractions among 11 saved comparison trials.
 remove = {
     'ball_bearing_object', 'first_2015_trash_can_object',
     'cafe_table_main', 'bookshelf_main', 'fire_hose_long_object',
@@ -37,8 +36,6 @@ ET.indent(tree, space='  ')
 tree.write(target, encoding='utf-8', xml_declaration=True)
 print(target)
 
-# Put the two objects missed in the first 26-target run into clear, separated
-# views. The navigation code still receives only LiDAR, SLAM, and detections.
 second = root / 'spaced_objects_easiest_26_v2.world'
 tree = ET.parse(target)
 world = tree.getroot().find('world')

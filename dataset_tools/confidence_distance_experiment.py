@@ -17,7 +17,6 @@ YOLO_MODEL_PATH = (
 )
 CSV_PATH = os.path.expanduser('~/ros2_ws/confidence_distance.csv')
 
-# object entity name, class name, world (x,y), approx center height
 TARGETS = [
     ('cup_object', 'cup', (-1.8, -2.5), 0.057),
     ('bowl_object', 'bowl', (-0.4, -2.8), 0.018),
@@ -75,11 +74,11 @@ def main():
         for dist in DISTANCES:
             depression = math.atan2(CAM_HEIGHT - oz, dist)
             if depression > math.radians(22.0):
-                continue  # would fall outside vertical FOV, skip (see camera geometry notes)
+                continue
 
             robot_x = ox - dist
             robot_y = oy
-            yaw = 0.0  # face +x, i.e. toward the object at (ox,oy) from the west
+            yaw = 0.0
 
             set_gz_pose(robot_x, robot_y, 0.02, yaw)
             time.sleep(0.6)

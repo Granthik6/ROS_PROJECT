@@ -137,7 +137,6 @@ def capture(args):
                                        (y1+y2)/2/base.IMG_H,
                                        (x2-x1)/base.IMG_W,
                                        (y2-y1)/base.IMG_H))
-                    # The test views are held out before training.
                     split = ('test' if index % 10 == 0 else
                              'val' if index % 10 == 1 else 'train')
                     image_path = DATASET / 'images' / split / (stem + '.png')

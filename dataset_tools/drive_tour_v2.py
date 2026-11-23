@@ -85,9 +85,6 @@ class DriveTour(Node):
         return min(vals) if vals else 10.0
 
     def object_clearance(self, center_deg, width_deg):
-        # small floor objects sit below the 2D lidar's scan height and are
-        # invisible to it -- fall back to the known object map so we don't
-        # silently drive into/over them
         if self.pose is None:
             return 10.0
         x, y, yaw = self.pose
@@ -128,7 +125,7 @@ class DriveTour(Node):
         stuck_anchor_t = time.time()
         stuck_count = 0
         recovering_until = 0.0
-        recover_state = None  # 'backup' or 'turn'
+        recover_state = None
         recover_turn_dir = 1.0
 
         while time.time() - start < timeout:

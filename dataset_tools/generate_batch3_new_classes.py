@@ -7,7 +7,7 @@ import generate_yolo_dataset as gyd
 
 INDEX_OFFSET = 200000
 
-NEW_CLASS_NAMES = set(gyd.CLASS_NAMES[10:])  # everything after the original 10
+NEW_CLASS_NAMES = set(gyd.CLASS_NAMES[10:])
 
 
 def main():

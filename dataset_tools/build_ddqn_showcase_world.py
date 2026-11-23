@@ -45,7 +45,6 @@ def build():
     large = [entry for entry in original if entry[0] in LARGE]
     other = [entry for entry in original if entry[0] not in LARGE]
     slots = [None] * len(original)
-    # Spread bulky models across the outside ring to preserve sight lines.
     for index, entry in enumerate(large):
         slots[index * 2] = entry
     others = iter(other)

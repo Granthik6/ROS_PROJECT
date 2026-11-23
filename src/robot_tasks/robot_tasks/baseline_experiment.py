@@ -238,8 +238,6 @@ class BaselineExperiment(Node):
             self.detection_callback,
             20
         )
-        # This simulator pose is stored solely for offline scoring. Frontier
-        # and action selection use SLAM, odometry and LiDAR only.
         self.create_subscription(
             ModelStates, '/gazebo/model_states',
             self.ground_truth_callback, 1,
@@ -387,8 +385,6 @@ class BaselineExperiment(Node):
         self.latest_map = msg
 
     def ground_truth_callback(self, msg):
-        # The model list is read only to locate the robot. Other Gazebo model
-        # poses are never stored or passed to navigation.
         try:
             index = msg.name.index('burger')
         except ValueError:
@@ -970,9 +966,6 @@ class BaselineExperiment(Node):
         if target is None:
             target = self._plan_nav2_probe(info, origin_yaw)
         if target is None:
-            # A stale or locally boxed-in SLAM map can have no legal probe
-            # cell even when LiDAR still sees open space. Use a short sensor-
-            # clear escape in that case; this never consults world objects.
             choices = []
             for angle in (0.0, math.pi / 4, -math.pi / 4,
                           math.pi / 2, -math.pi / 2,
@@ -980,8 +973,6 @@ class BaselineExperiment(Node):
                 clearance = self.sector_clearance(angle, 0.22)
                 if clearance < 1.0:
                     continue
-                # A scan sector with no return is usable but less certain
-                # than one with a measured, distant surface.
                 useful_clearance = (
                     min(clearance, 2.0) if math.isfinite(clearance) else 1.8
                 )
@@ -1040,9 +1031,6 @@ class BaselineExperiment(Node):
         )
 
     def _send_nav2_goal(self, path, probe=False, distant=False):
-        # Short waypoints let Nav2 replan as SLAM reveals nearby obstacles.
-        # Sending a distant map frontier directly often exhausts the 60 s
-        # action timeout before the robot can negotiate a narrow passage.
         if not probe and not distant and len(path) > 35:
             path = path[:30]
         x, y = path[-1]
@@ -1085,8 +1073,6 @@ class BaselineExperiment(Node):
 
     def _complete_nav2_action(self, succeeded):
         if self.action_kind == 'navigate':
-            # Nav2 can succeed with a short partial path if a frontier is
-            # blocked in its costmap. Verify the actual robot position.
             if succeeded and self.current_map_pose is not None:
                 distance_to_goal = math.hypot(
                     self.nav_goal_xy[0] - self.current_map_pose[0],
@@ -1094,8 +1080,6 @@ class BaselineExperiment(Node):
                 )
                 succeeded = distance_to_goal <= 0.35
             if self.nav_goal_tile is not None:
-                # Adjacent tiles can represent the same blocked frontier.
-                # Exclude its small neighborhood after a failed goal.
                 gx, gy = self.nav_goal_tile
                 offsets = (0,) if succeeded else (-1, 0, 1)
                 for dx in offsets:
@@ -1305,9 +1289,6 @@ class BaselineExperiment(Node):
                         'unvisited SLAM free space'
                     )
                     self.nav_no_goal_cycles = 0
-                    # Keep the long-range target but dispatch only the next
-                    # short waypoint. Nav2 may reject a full SLAM path where
-                    # its inflated costmap sees a blocked corridor.
                     self._send_nav2_goal(path)
                     return
 
@@ -1364,10 +1345,6 @@ class BaselineExperiment(Node):
             for dx in (-1, 0, 1)
             for dy in (-1, 0, 1)
         }
-        # SLAM can paint the robot's map cell beside an obstacle even when
-        # LiDAR shows a traversable corridor. A zero-inflation map route is a
-        # last resort. If exclusion cuts off every route, let Nav2 plan to a
-        # distant frontier without those exclusions rather than box us in.
         relaxed = False
         for relaxed in (False, True):
             for candidate_radius in (0.25, 0.10, 0.0):
@@ -1439,8 +1416,6 @@ class BaselineExperiment(Node):
             return
 
         self.update_path()
-        # Preserve trajectory evidence during long runs, including runs
-        # interrupted before finish() can write its final report.
         if time.monotonic() - self.last_path_checkpoint >= 30.0:
             self.save_robot_path()
             self.last_path_checkpoint = time.monotonic()
@@ -1503,7 +1478,6 @@ class BaselineExperiment(Node):
                 command.linear.x = 0.12
         elif (self.exploration_policy == 'coverage' and
               len(self.visited_tiles) - self.last_scan_tile_count >= 3):
-            # A 360-degree camera sweep covers objects hidden beside the path.
             self.motion_state = 'scan'
             self.motion_state_until = now + 2.0 * math.pi / 0.65
             self.last_scan_tile_count = len(self.visited_tiles)
@@ -1928,8 +1902,6 @@ class BaselineExperiment(Node):
         if self.finished:
             return
         self.finished = True
-        # ROS may have invalidated the context before KeyboardInterrupt reaches
-        # this method. Still write the partial report in that case.
         if rclpy.ok():
             if self.action_goal_handle is not None:
                 self.action_goal_handle.cancel_goal_async()

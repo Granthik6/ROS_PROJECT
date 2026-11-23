@@ -25,8 +25,6 @@ EXTRA_STANDS = {
     'hammer_object': (0.45, 0.50),
     'beer_object': (0.30, 0.30),
 }
-# Model origins differ from visible mesh bottoms. These poses put the mesh
-# bottoms on the 0.36 m stand tops rather than leaving props floating.
 EXTRA_MODEL_Z = {
     'cup_object': 0.2950,
     'bowl_object': 0.3599,
@@ -102,8 +100,6 @@ def build(extended=False, completion=False):
     for include in world.findall('include'):
         name = include.findtext('name', '')
         if name == 'fire_hose_long_object':
-            # The source world puts this target outside the search boundary.
-            # Use the free northeast slot so autonomous search can reach it.
             include.find('pose').text = '7.0000 5.0000 0.1000 0 0 0.0000'
         if name not in stands:
             continue

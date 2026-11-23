@@ -33,8 +33,6 @@ def main():
             if classes & WEAK_CLASS_IDS:
                 removed += 1
                 continue
-            # Source names are unique in this workspace, but prefixing the
-            # directory keeps that property explicit for future additions.
             prefix = 'original' if image_dir.name == 'original_subset' else 'spaced'
             destination_image = OUTPUT_IMAGES / f'{prefix}_{image.name}'
             destination_label = OUTPUT_LABELS / f'{prefix}_{label.name}'

@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run 16 new independent seeds and include the existing verified seed-42 run.
-# Usage: bash scripts/run_ddqn_26_17_trials.sh [max_minutes] [series_id]
 workspace=/root/ros2_ws
 max_minutes=${1:-12}
 series_id=${2:-ddqn_26_17_20261120}
 series_dir="$workspace/rl_evaluations/$series_id"
 reference=ddqn_reliable26_v4_20261120
 
-# Fix the experimental setup even if the shell has other trial overrides.
 export ROBOT_TASKS_DDQN_MODEL="$workspace/rl_runs/ddqn_safe_50000/model_final.zip"
 export ROBOT_TASKS_DETECTOR_MODEL="$workspace/realistic_sim_yolo_runs/all36_balanced_finetune_20261115/weights/best.pt"
 export ROBOT_TASKS_ACTION_DURATION=0.15

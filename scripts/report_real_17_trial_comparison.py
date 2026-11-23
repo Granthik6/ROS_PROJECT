@@ -42,8 +42,6 @@ def load_rows(root: Path, manifest: dict) -> list[dict]:
             if summary['target_objects'] != 36:
                 raise ValueError(f'Wrong object target: {summary_path}')
             if summary['status'] not in ('all_objects_found', 'completed_time_limit'):
-                # A stopped or failed trial is left on disk for inspection, but
-                # it is not included in the completed-trial statistics.
                 continue
             if manifest['minutes_per_trial'] == 0 and (
                     summary['status'] != 'all_objects_found'

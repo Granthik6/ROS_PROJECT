@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Count the verified seed-42 PPO run as trial 1, then run seeds 43..58.
-# Usage: bash scripts/run_ppo_26_17_trials.sh [max_minutes] [series_id]
 workspace=/root/ros2_ws
 max_minutes=${1:-12}
 series_id=${2:-ppo_26_17_20261121}

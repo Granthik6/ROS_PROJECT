@@ -22,8 +22,6 @@ tail = tail.replace(old, new, 1)
 target.write_text(head + '<name>person_walking_main</name>' + tail)
 print(target)
 
-# A further variant moves the cafe table into clear view from the central
-# aisle. The table remains separate from the nearby can and beer displays.
 v14 = ROOT / 'spaced_objects_accessible_v14.world'
 v13_text = target.read_text()
 cafe_head, separator, cafe_tail = v13_text.partition('<name>cafe_table_main</name>')

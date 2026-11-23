@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# Usage: train_coverage_improved.sh ddqn|ppo run_id [timesteps] [resume_model.zip]
 workspace=/root/ros2_ws
 algorithm=${1:-}
 run_id=${2:-}

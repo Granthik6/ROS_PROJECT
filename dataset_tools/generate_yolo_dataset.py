@@ -13,9 +13,6 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 
 
-# ---------------------------------------------------------------------------
-# Camera intrinsics (from robot_tasks camera spec)
-# ---------------------------------------------------------------------------
 FX = 554.254691191187
 FY = 554.254691191187
 CX = 320.5
@@ -25,8 +22,6 @@ IMG_H = 480
 NEAR_CLIP = 0.10
 FAR_CLIP = 10.0
 
-# camera_link relative to base_link (static_transform_publisher in
-# realistic_sim.launch.py): x y z roll pitch yaw
 CAM_OFFSET = np.array([0.105, 0.0, 0.45])
 CAM_ROLL = -1.57079632679
 CAM_PITCH = 0.0
@@ -49,12 +44,6 @@ CLASS_NAMES = [
 ]
 CLASS_ID = {name: i for i, name in enumerate(CLASS_NAMES)}
 
-# gazebo entity name, class name, world (x, y, yaw), local half-extent (m),
-# local center offset (m) in the model's own frame (rotates with object yaw).
-# Small graspable objects use the default distance list in
-# sample_object_viewpoints; furniture/person are much bigger and need to be
-# viewed from farther away to fit in frame, so they carry their own
-# "distances" override.
 OBJECTS = [
     dict(entity="cup_object", cls="cup", pos=(-1.8, -2.5), yaw=0.0,
          half=(0.03725, 0.03725, 0.0651), offset=(0.0, 0.0079, 0.1301)),
@@ -173,11 +162,8 @@ OBJECTS = [
          distances=[1.1, 1.5, 2.0, 2.7]),
 ]
 
-# Non-target obstacles the robot must not be teleported into (washer is real
-# but a broken/tiny mesh in this asset set - kept as background, not a
-# detection target; see project memory).
 OBSTACLES = [
-    (4.2, -2.8, 0.3),   # washer
+    (4.2, -2.8, 0.3),
 ]
 
 ROOM_X_MIN, ROOM_X_MAX = -5.6, 5.6
@@ -257,9 +243,8 @@ def set_gz_pose(entity, x, y, z, yaw, retries=3, timeout=8.0):
 
 
 def project_points(world_points, cam_pos, R_cam_world):
-    # world_points: (N,3)
     rel = world_points - cam_pos
-    cam_frame = (R_cam_world.T @ rel.T).T  # (N,3) in camera optical frame
+    cam_frame = (R_cam_world.T @ rel.T).T
     z = cam_frame[:, 2]
     valid = z > NEAR_CLIP
     u = FX * cam_frame[:, 0] / np.clip(z, 1e-6, None) + CX
@@ -288,15 +273,13 @@ def compute_visible_boxes(cam_pos, R_cam_world, depth=None):
     are actually visible (not occluded by a closer target object, and, when
     a depth image is supplied, consistent with the rendered depth)."""
 
-    # bearing (horizontal angle in camera frame) + distance for every object,
-    # used for inter-object occlusion reasoning.
     info = {}
     for obj in OBJECTS:
         center = object_center_world(obj)
         rel = center - cam_pos
         cam_frame = R_cam_world.T @ rel
         dist = np.linalg.norm(cam_frame)
-        bearing = math.atan2(cam_frame[0], cam_frame[2])  # horizontal angle
+        bearing = math.atan2(cam_frame[0], cam_frame[2])
         half_width = math.atan2(object_radius(obj), max(cam_frame[2], 1e-3))
         info[obj["entity"]] = dict(dist=dist, bearing=bearing, half_width=half_width,
                                     z=cam_frame[2])
@@ -380,9 +363,6 @@ def compute_visible_boxes(cam_pos, R_cam_world, depth=None):
 
 
 def sample_object_viewpoints(obj, n_distances=6, n_angles=10):
-    # camera is mounted at ~0.45m with no downward tilt (fixed hardware,
-    # see model.sdf) -> floor-level objects fall outside the ~23 deg
-    # vertical half-FOV closer than roughly 0.9-1.0m, so start further out.
     distances = obj.get("distances") or [1.1, 1.4, 1.8, 2.3, 2.9, 3.5][:n_distances]
     viewpoints = []
     ox, oy = obj["pos"]
@@ -420,7 +400,7 @@ def is_free(x, y):
             return False
     for obj in OBJECTS:
         ox, oy = obj["pos"]
-        footprint_r = object_radius(obj) + 0.2  # + robot clearance margin
+        footprint_r = object_radius(obj) + 0.2
         if math.hypot(x - ox, y - oy) < footprint_r:
             return False
     return True
@@ -507,15 +487,8 @@ class DatasetGenerator(Node):
             return None
         bx, by, bz, broll, bpitch, byaw = pose
 
-        # discard any RGB/depth frames that were published while we were
-        # still polling for the pose to settle (queue backlog), then wait
-        # for a genuinely new one so it's guaranteed to reflect the
-        # now-settled pose, not a mid-transition one.
         self.flush_callbacks()
         self.wait_fresh_frame()
-        # re-read pose after the frame arrives; if the settle check above
-        # was solid this should barely move, but this is what actually
-        # corresponds to the grabbed frame's timing.
         try:
             bx, by, bz, broll, bpitch, byaw = get_gz_pose("burger")
         except Exception as error:
@@ -534,7 +507,7 @@ class DatasetGenerator(Node):
         prefix = focus_cls if focus_cls else "scene"
         filename = f"{prefix}_{index:05d}"
         if os.path.exists(os.path.join(RAW_IMAGES, filename + ".png")):
-            return  # already captured in a previous (interrupted) run
+            return
 
         try:
             result = self.acquire(robot_x, robot_y, robot_yaw)

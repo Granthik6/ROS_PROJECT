@@ -60,18 +60,11 @@ def calibrate_one(node, entity, cls, pos, dist):
 
     cam_pos, R_cam_world = gyd.compute_camera_pose(bx, by, byaw, bz)
 
-    # We know the robot was placed `dist` away from the object's known
-    # world position, so restrict candidate pixels to a tight depth band
-    # around that expected distance -- much more robust than a floor-
-    # relative test (which degenerates to "everything with valid depth"
-    # above the horizon line for any pixel that never hits the floor).
     band_lo = max(gyd.NEAR_CLIP, dist - BAND_TOLERANCE)
     band_hi = min(MAX_DEPTH, dist + BAND_TOLERANCE)
 
     valid = np.isfinite(depth) & (depth > band_lo) & (depth < band_hi)
 
-    # restrict to central region (both axes) to avoid floor/ceiling and
-    # neighboring objects sneaking in
     mask = np.zeros_like(valid)
     mask[gyd.IMG_H // 5: gyd.IMG_H - gyd.IMG_H // 5,
          gyd.IMG_W // 5: gyd.IMG_W - gyd.IMG_W // 5] = True
@@ -80,11 +73,6 @@ def calibrate_one(node, entity, cls, pos, dist):
     if candidate.sum() < 30:
         return None
 
-    # Connected components within the depth band. A background wall at a
-    # coincidentally similar depth tends to (a) be large, (b) touch the ROI
-    # border (it extends beyond the region we bothered to look at), and
-    # (c) not be centered -- so instead of just "largest blob", reject
-    # border-touching blobs and prefer the one closest to image center.
     roi_x0, roi_x1 = gyd.IMG_W // 5, gyd.IMG_W - gyd.IMG_W // 5
     roi_y0, roi_y1 = gyd.IMG_H // 5, gyd.IMG_H - gyd.IMG_H // 5
     border_margin = 4
